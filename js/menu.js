@@ -7,18 +7,24 @@
  *
  * A container will always appear aligned to the bottom left of the trigger, unless otherwise specified.
  */
-define(['jquery', 'mixins/navigationMixin'], function ($, navigation) {
-    var trigger = '[data-trigger="menu"]';
+define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], function ($, navigation, keycode) {
+    var trigger = '[data-trigger="menu"]',
+        nav;
 
     var Menu = function (element) {
-        var nav = navigation(element);
-        $(element).delegate('mousedown.menu', this.keyboardNavigation);
-        $(element).delegate('keydown.menu', this.mouseNavigation);
-        this.close();
+        nav = navigation($(element));
+        $(element).on('mouseover', this.keyboardNavigation);
+        $(element).on('keydown', this.mouseNavigation);
+        console.log(element);
     };
 
-    function keyboardNavigation () { console.log('foo');}
-    function mouseNavigation() { console.log('bar');}
+    function keyboardNavigation (nav, event) { 
+        var key = event.keyCode;
+        key && key == keycode.DOWN && nav.next();
+        key && key == keycode.UP && nav.previous();
+    }
+
+    function mouseNavigation(nav, event) { console.log('bar');}
 
     Menu.prototype = {
     }
@@ -35,9 +41,15 @@ define(['jquery', 'mixins/navigationMixin'], function ($, navigation) {
         });
     }
 
-    $('[aria-role="menu"]').each(function () {
-        $(this).delegate('mouseover.menu.data-api', console.log('meh'));
-        $(this).delegate('mouseover.menu.data-api', console.log('moh'));
+    $(function () {
+        $('[data-trigger="menu"]').each(function () {
+            var that = this;
+            nav = navigation($(this));
+            $(this).on('mouseover', function (nav) { return function (event) { mouseNavigation.apply(that, [nav, event]) } }(nav));
+            $(this).on('keydown', function (nav) { return function (event) { keyboardNavigation.apply(that, [nav, event]) } }(nav));
+            $(this).on('focusin', $(this), function () { console.log('focus') });
+            $(this).on('focusout', $(this), function () { console.log('blur') });
+        });
     });
 
     return Menu;
