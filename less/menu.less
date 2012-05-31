@@ -1,0 +1,89 @@
+.aui-menu {
+	margin: 0;
+	padding: 0;
+	list-style: none;	
+
+	&.aui-plain {
+		.aui-menu-link {
+			font-size: 13px;
+		}
+	}
+
+	&.aui-pills {
+		.aui-btn {
+			font-size: 13px;
+		}
+
+		.aui-menu-link {
+			border: 1px solid transparent;
+			border-radius: 3px;
+			font-size: 13px;
+			padding-bottom: 2px;
+			padding-top: 3px;
+			
+			&.aui-active,
+			&:aui-active,
+			&:hover,
+			&:focus {
+				.gradientBar(#2a5b8c, #356490); 	
+				border: 1px solid #507EAC;
+				opacity: 1;
+		    	outline: 0;
+			}
+		}
+	}
+
+	&.aui-blocks {
+		.aui-menu-link {
+			font-size: 14px;
+			line-height: 1.5;
+			padding: 10px 8px 9px 8px;
+			border-left: 1px solid transparent;
+			border-right: 1px solid transparent;
+
+			&.aui-dropdown-arrow {
+				padding-right: 24px;
+			}
+
+			&.aui-active,
+			&:hover,
+			&:focus {
+				.gradientBar(#4978A6, #346492); 	
+				border-color: #507EAC;
+				opacity: 1;
+    			outline: 0;
+			}
+		}
+
+		.aui-appswitch {
+			border-left: 1px solid transparent;
+			border-right: 1px solid transparent;
+			padding-bottom: 11px;
+			padding-top: 12px;
+
+			&.aui-active,
+			&:hover,
+			&:focus {
+				.gradientBar(#4978A6, #346492); 	
+				border-color: #507EAC;
+				opacity: 1;
+    			outline: 0;
+			}
+		}
+	}
+
+	.navbar-search {
+		font-size: 13px;
+	}
+}
+
+.aui-menu-group {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	min-width: 200px;
+
+	.aui-menu + .aui-menu {
+		border-top: 1px solid #CCE;
+	}
+}

@@ -1,0 +1,104 @@
+.aui-menu-bar:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.aui-menu-bar {
+	&.aui-plain {
+		background-color: #1C4B77;
+		.gradientBar(#24598C, #1C4B77); 
+		padding: 0 8px 8px 8px;
+
+		a {
+			text-decoration: none;
+			color: #fff;
+			opacity: 0.8;
+			font-weight: bold;
+			
+			&:hover {
+				text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+				opacity: 1;
+			}
+		}
+		
+		.aui-menu {
+			padding: 8px 0 0 0;
+		}
+	}
+	
+	&.aui-full {
+		background-color: #1C4B77;
+		.gradientBar(#24598C, #1C4B77); 
+		padding: 0 8px 0 8px;
+		
+		a {
+			text-decoration: none;
+			color: #fff;
+			opacity: 0.8;
+			font-weight: bold;
+			
+			&:hover {
+				text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+				opacity: 1;
+			}
+		}
+	}	
+
+	.aui-menu {
+        float: left;
+        
+         &.aui-pull-right {
+            float: right;
+        }
+
+		> li {
+			float: left;
+			&+ li {
+				margin-left: 16px;
+			}
+		}
+	}
+
+	[class|="aui-icon"] {
+		margin-top: 4px;
+	}
+
+	input[type="search"] {
+		.appearance(textfield);
+		font-size: 13px;
+		border-radius: 15px;
+		height: 20px;
+		border: 0;
+		margin: 2px 0 0 0;
+		padding: 0;
+		opacity: 0.9;
+	    width: 120px;	
+		-moz-transition: all 0.1s ease-in;
+		-webkit-transition: all 0.1s ease-in;
+		transition: all 0.1s ease-in;
+        &:-webkit-search-decoration,
+        &:-webkit-search-cancel-button {
+            display: none;
+        }
+
+		&:focus {
+			opacity: 1;
+			outline: 0;
+		}
+	}
+}
+
+.aui-appswitch {
+	padding: 4px 8px 3px 8px;
+	float: left;
+	
+	img {
+		float: left;
+		margin: -4px 8px -3px 0;
+	}
+
+	&:hover {
+		background-color: transparent;
+	}
+}
