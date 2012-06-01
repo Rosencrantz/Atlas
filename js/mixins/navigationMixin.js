@@ -29,7 +29,13 @@ define('mixins/navigationMixin',['jquery'], function ($) {
 		return {
 			first : function () {
 				clearActive();
-				$(children[0]).addClass(activeClass);
+				setActive($(children[0]));;
+				return this;
+			},
+
+			last : function () {
+				clearActive();
+				setActive($(children[children.length-1]));;
 				return this;
 			},
 
@@ -51,10 +57,28 @@ define('mixins/navigationMixin',['jquery'], function ($) {
 				return this;
 			},
 
+			clear: function() {
+				clearActive();
+				return this;
+			},
+
 			move : function (index) {
 				clearActive();
 				$(children[index]).addClass(activeClass);
 				return this;
+			},
+
+			//Unsure about the following three functions
+			container : function () {
+				return container;
+			},
+
+			length : function () {
+				return children.length;
+			},
+
+			activeIndex : function() {
+				return getActiveIndex(children);
 			}
 		}
 	}

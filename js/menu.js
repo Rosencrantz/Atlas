@@ -3,27 +3,37 @@
  * 
  */
 define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], function ($, navigation, keycode) {
-    var trigger = '[data-trigger="menu"]',
-        nav;
+    var trigger = '[data-trigger="menu"]';
 
     var Menu = function (element) {
-        nav = navigation($(element));
+        var nav = navigation($(element));
+        $(element).data('nav', nav);
         $(element).on('mouseover', this.keyboardNavigation);
         $(element).on('keydown', this.mouseNavigation);
     };
 
-    function keyboardNavigation (nav, event) { 
+    function keyboardNavigation (event) { 
         var key = event.keyCode,
-            shiftKey = event.shiftKey;
+            shiftKey = event.shiftKey,
+            nav = $(this).data('nav');
 
         event.preventDefault();
-        
+
         if(key && (key == keycode.DOWN || (!shiftKey && key == keycode.TAB))) {
-            nav.next();
+            if(nav.activeIndex() == nav.length()-1) {
+                nav.clear();
+                $('#' + nav.container().attr('aria-flowto')).data('nav').first();
+            } else {
+                nav.next();
+            }
         }
 
         if(key && (key == keycode.UP || (shiftKey && key == keycode.TAB))) { 
-            nav.previous();
+            if(nav.activeIndex() > 0) {
+                nav.previous();
+            } else {
+               $('[aria-flowto="' + nav.container().attr('id') + '"]').data('nav').last(); 
+            }
         }
         
         return this;
@@ -46,10 +56,12 @@ define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], funct
 
     $(function () {
         $('[data-trigger="menu"]').each(function () {
-            var that = this;
-            nav = navigation($(this));
-            $(this).on('mouseover', function (nav) { return function (event) { mouseNavigation.apply(that, [nav, event]) } }(nav));
-            $(this).on('keyup', function (nav) { return function (event) { keyboardNavigation.apply(that, [nav, event]) } }(nav));
+            var that = this,
+                nav = navigation($(this));
+
+            $(that).data('nav', nav);
+            $(this).on('mouseover', function (event) { mouseNavigation.apply(that, [event]) });
+            $(this).on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
         });
     });
 
