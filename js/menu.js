@@ -18,11 +18,11 @@ define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], funct
 
         event.preventDefault();
         
-        if(key && (key == $.keycode.DOWN || (!shiftKey && key == $.keycode.TAB))) {
+        if(key && (key == keycode.DOWN || (!shiftKey && key == keycode.TAB))) {
             nav.next();
         }
 
-        if(key && (key == $.keycode.UP || (shiftKey && key == $.keycode.TAB))) { 
+        if(key && (key == keycode.UP || (shiftKey && key == keycode.TAB))) { 
             nav.previous();
         }
         

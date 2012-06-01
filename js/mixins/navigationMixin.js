@@ -1,10 +1,4 @@
-/*!
- * navigationMixin
- *
- * This module provides simple horizontal and vertical keyboard navigation within a list
- * If the list contains a aria-flowto attribute then the keyboard navigation can work across lists
- */
-define(['jquery'], function ($) {
+define('mixins/navigationMixin',['jquery'], function ($) {
 
 	function navigationMixin(container) {
 		var container = $(container),
@@ -14,6 +8,14 @@ define(['jquery'], function ($) {
 		function clearActive() {
 			$('.' + activeClass, container).removeClass(activeClass);
 		}
+
+        function setActive(element) {
+            var focusable = ['a','input','select','textarea','button'].join();
+            
+            clearActive();
+            element.addClass(activeClass);
+            $($(focusable, element)[0]).focus();            
+        }
 
 		function getActiveIndex(children) {
 			for(var i=0, ii=children.length; i < ii; i++) {
@@ -35,17 +37,17 @@ define(['jquery'], function ($) {
 				var activeIndex = getActiveIndex(children),
 					nextIndex = ((activeIndex + 1) >= children.length) ? activeIndex : activeIndex+1;
 
-				clearActive();
-				$(children[nextIndex]).addClass(activeClass);
-				return this;
+				setActive($(children[nextIndex]));
+
+                return this;
 			},
 
 			previous : function () {
 				var activeIndex = getActiveIndex(children),
 					previousIndex = (activeIndex <= 0) ? 0 : activeIndex - 1;
 
-				clearActive();
-				$(children[previousIndex]).addClass(activeClass);
+				setActive($(children[previousIndex]));
+
 				return this;
 			},
 
