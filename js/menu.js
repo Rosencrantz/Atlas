@@ -1,17 +1,22 @@
 /*!
  * Menu
- * 
+ *
+ * Add keyboard navigation to your menus. Provides vertical navigation using the up/down tab/shift+tab keys
+ * Supports moving between multiple menus through the the use of the aria-flowto attribute. 
  */
 define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], function ($, navigation, keycode) {
     var trigger = '[data-trigger="menu"]';
 
     var Menu = function (element) {
-        var nav = navigation($(element));
-        $(element).data('nav', nav);
-        $(element).on('mouseover', this.keyboardNavigation);
-        $(element).on('keydown', this.mouseNavigation);
+        var element = $(element),
+            nav = navigation($(element));
+
+        element.data('nav', nav);
+        element.on('mouseover', this.keyboardNavigation);
+        element.on('keydown', this.mouseNavigation);
     };
 
+    //Provide suitable keyboard navigation for the specified container
     function keyboardNavigation (event) { 
         var key = event.keyCode,
             shiftKey = event.shiftKey,
@@ -41,27 +46,23 @@ define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], funct
 
     function mouseNavigation(nav, event) { }
 
-    Menu.prototype = {
-    }
-
-    $.fn.menu = function (option) {
+    $.fn.menu = function () {
         return this.each(function () {
             var $this = $(this),
                 data = $this.data('menu');              
             
             !data && $this.data('menu', (data = new Menu(this)));
-            typeof option == 'string' && data[option].call($this);
         });
     }
 
     $(function () {
         $('[data-trigger="menu"]').each(function () {
-            var that = this,
-                nav = navigation($(this));
+            var that = $(this),
+                nav = navigation(that);
 
-            $(that).data('nav', nav);
-            $(this).on('mouseover', function (event) { mouseNavigation.apply(that, [event]) });
-            $(this).on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
+            that.data('nav', nav);
+            that.on('mouseover', function (event) { mouseNavigation.apply(that, [event]) });
+            that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
         });
     });
 
