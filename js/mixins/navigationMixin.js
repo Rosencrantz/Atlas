@@ -1,3 +1,9 @@
+/**
+ * NavigationMixin
+ *
+ * Provides some basic methods for navigating through lists of compontents
+ * And setting active classes on them
+ */
 define('mixins/navigationMixin',['jquery'], function ($) {
 
 	function navigationMixin(container) {
