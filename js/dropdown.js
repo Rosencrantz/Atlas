@@ -1,11 +1,18 @@
 /*!
  * Dropdown
  * 
- * We define a dropdown as being a trigger and a container. When the trigger is clicked the container appears.
- * If the trigger is clicked again the container disappears. Clicking outside of the container also causes the 
- * Container to disappear.
+ * Markup
+ * 
+ * <a data-trigger="dropdown" aria-owns="container">Trigger</a>
+ * <div id="container">Container</div>
  *
- * A container will always appear aligned to the bottom left of the trigger, unless otherwise specified.
+ * Javascript
+ *
+ * $('<a data-trigger="dropdown" aria-owns="container">Trigger</a>').dropdown();
+ *
+ * A dropdown is a trigger that, when clicked, displays a container below and aligned to the left edge
+ * of the trigger. The container can be any element on the page, and can contain any markup as long as 
+ * the aria-owns values matches the id of the container.
  */
 define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, visibility, panel, positioning, registerPlugin) {
     var trigger = '[data-trigger~="dropdown"]';
@@ -63,17 +70,6 @@ define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixin
         return false;
     }
 
-    //jQuery wrapper. Creates the dropdown plugin. Additionally parses the 
-    //Dom looking for dropdowns which it will automatically setup
-    /*$.fn.dropdown = function (option) {
-        return this.each(function () {
-            var $this = $(this),
-                data = $this.data('dropdown');              
-            
-            !data && $this.data('dropdown', (data = new Dropdown(this)));
-            typeof option == 'string' && data[option].call($this);
-        });
-    }*/
     registerPlugin('dropdown', Dropdown);
 
     $(function () {
