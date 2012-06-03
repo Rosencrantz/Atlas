@@ -7,4 +7,4 @@ require(['../menu'], function (dropdownPlugin) {
 		var menu = $('body').menu();
 		ok(menu);
 	});
-});
+}); 

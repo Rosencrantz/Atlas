@@ -7,7 +7,7 @@
  *
  * A container will always appear aligned to the bottom left of the trigger, unless otherwise specified.
  */
-define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/relativePositionMixin'], function ($, visibility, positioning, listNavigation) {
+define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/relativePositionMixin','mixins/registerPluginMixin'], function ($, visibility, positioning, registerPlugin) {
     var trigger = '[data-trigger~="dialog"]',
         settings = {
             dialogClass : 'aui-dialog'
@@ -68,20 +68,8 @@ define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/relativePositionMix
         });
     }
 
-
-    //jQuery wrapper. Creates the dialog plugin. Additionally parses the 
-    //Dom looking for dialogs which it will automatically setup
-    $.fn.dialog = function (option) {
-    	console.log('err');
-        return this.each(function () {
-            var $this = $(this),
-                data = $this.data('dialog');              
-            
-            !data && $this.data('dialog', (data = new Dialog(this)));
-            typeof option == 'string' && data[option].call($this);
-        });
-    }
-
+    registerPlugin('dialog', Dialog);
+    
     $(document).ready(function () {
         $('body').delegate(trigger, 'click.dialog.data-api', Dialog.prototype.toggle);
     });

@@ -2,9 +2,12 @@
 <html>
 	<head>
 		<link type="text/css" rel="stylesheet" href="../css/atlas.css" />
+		<script type="text/javascript" src="../js/vendor/underscore/underscore.js"></script>
 		<script type="text/javascript" src="../js/atlas.js"></script>
 	</head>
 	<body>
+		<a href="" data-trigger="dropdown" aria-owns="dropdown">Dropdown</a>
+		<div id="dropdown" class="aui-hide">The dropdown</div>
 		<ul data-trigger="menu" aria-flowto="menu2">
 			<li><a href="">One</a></li>
 			<li><a href="">Two</a></li>
@@ -26,5 +29,19 @@
 			<li><a href="">D</a></li>
 			<li><a href="">E</a></li>
 		</ul>
+		<div id="tabs" data-trigger="tab">
+			<ul data-trigger="menu">
+				<li><a href="" aria-owns="panel1">Panel1</a></li>
+				<li><a href="" aria-owns="panel2">Panel2</a></li>
+				<li><a href="" aria-owns="panel3">Panel3</a></li>
+				<li><a href="" aria-owns="panel4">Panel4</a></li>
+				<li><a href="" aria-owns="panel5">Panel5</a></li>
+			</ul>
+			<div id="panel1"><p>This is panel 1</p></div>
+			<div class="aui-hide" id="panel2"><p>This is panel 2</p></div>
+			<div class="aui-hide" id="panel3"><p>This is panel 3</p></div>
+			<div class="aui-hide" id="panel4"><p>This is panel 4</p></div>
+			<div class="aui-hide" id="panel5"><p>This is panel 5</p></div>
+		</div>
 	</body>
 </html>

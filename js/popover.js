@@ -7,7 +7,7 @@
  *
  * A container will always appear aligned to the bottom left of the trigger, unless otherwise specified.
  */
-define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/relativePositionMixin'], function ($, visibility, positioning, listNavigation) {
+define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, visibility, positioning, registerPlugin) {
     var trigger = '[data-trigger~="popover"]',
         settings = {
             popoverClass : 'aui-popover'
@@ -68,23 +68,9 @@ define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/relativePositionMix
         });
     }
 
-
-    //jQuery wrapper. Creates the popover plugin. Additionally parses the 
-    //Dom looking for popovers which it will automatically setup
-    $.fn.popover = function (option) {
-    	console.log('err');
-        return this.each(function () {
-            var $this = $(this),
-                data = $this.data('popover');              
-            
-            !data && $this.data('popover', (data = new Popover(this)));
-            typeof option == 'string' && data[option].call($this);
-        });
-    }
+    registerPlugin('popover', Popover);
 
     $(document).ready(function () {
-        //$('body').delegate(trigger, 'mouseover.popover.data-api', open);
-        //$('body').delegate(trigger, 'mouseout.popover.data-api', close);
         $('body').delegate(trigger, 'click.popover.data-api', Popover.prototype.toggle);
         $('html').bind('click.popover.data-api', close);
     });

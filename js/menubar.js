@@ -2,7 +2,7 @@
  * Menu
  * 
  */
-define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], function ($, navigation, keycode) {
+define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin', 'mixins/registerPluginMixin'], function ($, navigation, keycode, registerPlugin) {
     var trigger = '[data-trigger="menubar"]';
 
     var Menu = function (element) {
@@ -44,15 +44,7 @@ define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], funct
     Menu.prototype = {
     }
 
-    $.fn.menu = function (option) {
-        return this.each(function () {
-            var $this = $(this),
-                data = $this.data('menu');              
-            
-            !data && $this.data('menu', (data = new Menu(this)));
-            typeof option == 'string' && data[option].call($this);
-        });
-    }
+    registerPlugin('menu', Menu);
 
     $(function () {
         $('[data-trigger="menubar"]').each(function () {

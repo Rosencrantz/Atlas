@@ -4,7 +4,7 @@
  * Add keyboard navigation to your menus. Provides vertical navigation using the up/down tab/shift+tab keys
  * Supports moving between multiple menus through the the use of the aria-flowto attribute. 
  */
-define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], function ($, navigation, keycode) {
+define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, navigation, keycode, registerPlugin) {
     var trigger = '[data-trigger="menu"]';
 
     var Menu = function (element) {
@@ -46,15 +46,8 @@ define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin'], funct
 
     function mouseNavigation(nav, event) { }
 
-    $.fn.menu = function () {
-        return this.each(function () {
-            var $this = $(this),
-                data = $this.data('menu');              
-            
-            !data && $this.data('menu', (data = new Menu(this)));
-        });
-    }
-
+    registerPlugin('menu', Menu);
+    
     $(function () {
         $('[data-trigger="menu"]').each(function () {
             var that = $(this),
