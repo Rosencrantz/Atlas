@@ -7,11 +7,16 @@
  * <div id="container">Container</div>
  *
  * Javascript
+ * 
+ * var selector = $('<a data-trigger="dropdown" aria-owns="container">Trigger</a>')
+ * selector.dropdown();
  *
- * $('<a data-trigger="dropdown" aria-owns="container">Trigger</a>').dropdown();
+ * selector.dropdown('open');
+ * selector.dropdown('close');
+ * selector.dropdown('toggle');
  *
- * A dropdown is a trigger that, when clicked, displays a container below and aligned to the left edge
- * of the trigger. The container can be any element on the page, and can contain any markup as long as 
+ * A dropdown is a trigger that when clicked, displays a container below and aligned to the left edge
+ * of the trigger. The container can be any element on the page and can contain any markup as long as 
  * the aria-owns values matches the id of the container.
  */
 define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, visibility, panel, positioning, registerPlugin) {
