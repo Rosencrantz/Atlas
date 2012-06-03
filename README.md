@@ -1,5 +1,8 @@
-ATLAS
+Atlas
 
-Atlas is a user interface prototyping tool. It is designed to be easy to use for those of us not blessed with a full understanding of Javascript. At the core of ATLAS are a number of simple patterns that the developer can use to build interfaces.
+Atlas is a user interface prototyping tool. It purpose is to provides a number of simple, easy to use patterns for creating common user interface features.
 
-Atlas patterns work from the principle that most interations on a web page invole a trigger and a container. When you interact with the trigger something happens to the container. Dropdowns, Dialogs, Tabs and Popovers are all examples of this trigger/container interaction.
+In an effort to provide the most simple patterns Atlas provides a set of small components that can be composed into larger, more complex features. The most simple components provided by Atlas consist of a trigger and a container, the dropdown serves as a good example:
+
+&lt;a data-trigger="dropdown" aria-owns="container"&gt;Trigger&lt;/a&gt;
+&lt;div id="container"&gt;Container&lt;/a&gt;
