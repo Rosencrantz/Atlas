@@ -1,12 +1,16 @@
-/*!
- * Dropdown
- * 
- * Markup
+/*
+ * === Dropdown ===
+ *
+ * A dropdown is a trigger that when clicked, displays a container below and aligned to the left edge
+ * of the trigger. The container can be any element on the page and can contain any markup as long as 
+ * the aria-owns values matches the id of the container.
+ *
+ * === Markup ===
  * 
  * <a data-trigger="dropdown" aria-owns="container">Trigger</a>
  * <div id="container">Container</div>
  *
- * Javascript
+ * === Javascript ===
  * 
  * var selector = $('<a data-trigger="dropdown" aria-owns="container">Trigger</a>')
  * selector.dropdown();
@@ -15,16 +19,13 @@
  * selector.dropdown('close');
  * selector.dropdown('toggle');
  *
- * Events
+ * === Events ===
  * 
  * appName.show.dropdown -> raised before the panel is displayed to the user
  * appName.shown.dropdown -> raised after the panel is displayed to the user
  * appName.hide.dropdown -> raised before the panel is hidden from the user 
  * appName.hidden.dropdown -> raised after the panel is hidden from the user
  *
- * A dropdown is a trigger that when clicked, displays a container below and aligned to the left edge
- * of the trigger. The container can be any element on the page and can contain any markup as long as 
- * the aria-owns values matches the id of the container.
  */
 define(['jquery', 'eve', 'settings',
     'eventHandlers/visibility', 

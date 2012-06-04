@@ -1,3 +1,33 @@
+/* 
+ * === Panel (internal use only) ===
+ *
+ * Panel is an internal convienence object for handling the visibility of trigger/container style plugins.
+ * Panel iterates over the dom and finds all instances of 'panelAttribute' (aria-owns is the default) for
+ * each of these it creates a new panel object which it attaches to the trigger element as a data-attribute.
+ * 
+ * Panel objects are used in plugins like the dropdown for displaying the panel on click/keydown etc. Calling 
+ * panel.show or panel.hide generates events that can then be hooked by the plugin to add extra functionality 
+ * such as positioning or validation.
+ *
+ * === Markup ===
+ * 
+ * <a aria-owns="panel">Trigger</a>
+ * <div id="panel">Panel</div>
+ *
+ * === Javascript ===
+ *
+ * var panel = Panel(element);
+ * panel.open();
+ * panel.close();
+ *
+ * === Events ===
+ * 
+ * appName.show.pluginName.panel
+ * appName.shown.pluginName.panel
+ * appName.hide.pluginName.panel
+ * appName.hidden.pluginName.panel
+ * 
+ */ 
 define(['jquery', 'eve', 'settings','eventHandlers/visibility', 'mixins/registerPluginMixin'], function ($, eve, settings,visibility, registerPlugin) {
 
     var Panel = function (element) {
@@ -17,10 +47,6 @@ define(['jquery', 'eve', 'settings','eventHandlers/visibility', 'mixins/register
     function dispatch(pre, post, ret) {
         var that = this,
             triggerName = that.trigger.data(settings.pluginAttribute);
-
-        if(typeof func == "function") {
-            func.call(that);
-        }
 
         eve(['atlas', pre, triggerName, 'panel'].join('.'), that.container);
 
