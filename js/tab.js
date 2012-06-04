@@ -1,4 +1,4 @@
-define(['jquery', 'settings', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, settings, visibility, panel, positioning, registerPlugin) {
+define(['jquery', 'settings', 'eventHandlers/visibility', 'mixins/panelMixin', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, settings, visibility, panel, positioning, registerPlugin) {
     var trigger = '[data-' + settings.pluginAttribute + '="tab"]';
 
     var Tab = function (element) {

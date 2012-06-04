@@ -1,4 +1,4 @@
-define(['jquery', 'eve', 'settings','eventHandlers/visibilityHandler', 'mixins/registerPluginMixin'], function ($, eve, settings,visibility, registerPlugin) {
+define(['jquery', 'eve', 'settings','eventHandlers/visibility', 'mixins/registerPluginMixin'], function ($, eve, settings,visibility, registerPlugin) {
 
     var Panel = function (element) {
         this.trigger = $(element);

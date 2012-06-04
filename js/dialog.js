@@ -1,78 +1,71 @@
-/*!
- * dialog
- * 
- * We define a dialog as being a trigger and a container. When the trigger is clicked the container appears.
- * If the trigger is clicked again the container disappears. Clicking outside of the container also causes the 
- * Container to disappear.
- *
- * A container will always appear aligned to the bottom left of the trigger, unless otherwise specified.
- */
-define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/relativePositionMixin','mixins/registerPluginMixin'], function ($, visibility, positioning, registerPlugin) {
-    var trigger = '[data-trigger~="dialog"]',
-        settings = {
-            dialogClass : 'aui-dialog'
+define(['jquery', 'eve', 'settings',
+    'eventHandlers/visibility', 
+    'mixins/panelMixin', 
+    'mixins/relativePositionMixin', 
+    'mixins/registerPluginMixin'], 
+    function ($, eve, settings, visibility, panel, positioning, registerPlugin) {
+        var trigger = '[data-' + settings.pluginAttribute + '="dialog"]';
+
+        var Dropdown = function (element) {
+            $(element).on('click.dialog', trigger, this.toggle);
         };
 
-    var Dialog = function (element) {
-        $(element).delegate(trigger, 'click.dialog', this.toggle);
-        this.close();
-    };
+         Dropdown.prototype = {
+            toggle : function (e) {
+                var that = $(this),
+                    container = $('#' + that.attr(settings.panelAttribute)),
+                    isHidden = visibility.isHidden(container);
 
-     Dialog.prototype = {
-        //Inverts whatever state the container is currently in. If displayed then hide, if hidden then display.
-        toggle : function (e) {
-            var container = $('#' + $(this).attr('aria-owns'));
+                if(isHidden) {                
+                    open.call(this, e);
+                } else {
+                    close.call(this, e);
+                }
 
-            if (container.is('.' + settings.dialogClass) && visibility.isHidden(container)) {
+                return !isHidden;
+            },
+            
+            open : function (e) {
                 open.call(this, e);
-                return false;
-            } else {
+            },
+
+            close : function (e) {
                 close.call(this, e);
             }
+        };
 
-            return true;
-        },
-        
-        open : function (e) {
-            open.call(this, e);
-        },
-
-
-        close : function (e) {
-            close.call(this, e);
+        function open(e) {
+            var element = $(this),
+                panel = element.data('panel');
+            
+            panel.open();
         }
-    };
 
-    //Always opens the container, regardless of it's current state
-    function open(e) {
-        var trigger = $(this),
-            element = $('#' + trigger.attr('aria-owns')),
-            position = positioning($(document), element),
-            width = element.outerWidth(),
-            offsetLeft = element.offset().left;
+        function close(e) {
+            $(trigger).each(function () {
+                var that = $(this),
+                    panel = that.data('panel');
 
-        close();
-
-        if (element.is('.' + settings.dialogClass)) {
-            element.css('width', width);
-            position.center().middle();               
-            element.trigger('visibility.show');
-            trigger.focus();
+                panel.close();   
+            });
+            return false;
         }
-    }
 
-    //Closes the container, regardless of it's current state
-    function close() {
-        $('.' + settings.dialogClass).not('.aui-hide').each(function () {
-            $(this).trigger('visibility.hide');
+        function position(e) {
+            var container = eve.arguments[1],
+                trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
+                panel = trigger.data('panel'),
+                position = positioning(trigger);
+                position.center().middle();
+        }
+
+        registerPlugin('dropdown', Dropdown);
+
+        $(function () {
+            $('html').on('click.dropdown', close);
+            eve.on(settings.appName + '.show.dialog', position);
+            $('body').on('click.dropdown', trigger, Dropdown.prototype.toggle);
         });
-    }
 
-    registerPlugin('dialog', Dialog);
-    
-    $(document).ready(function () {
-        $('body').delegate(trigger, 'click.dialog.data-api', Dialog.prototype.toggle);
-    });
-
-    return Dialog;
+        return Dropdown;
 });

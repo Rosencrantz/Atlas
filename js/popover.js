@@ -7,7 +7,7 @@
  *
  * A container will always appear aligned to the bottom left of the trigger, unless otherwise specified.
  */
-define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, visibility, positioning, registerPlugin) {
+define(['jquery', 'eventHandlers/visibility', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, visibility, positioning, registerPlugin) {
     var trigger = '[data-trigger~="popover"]',
         settings = {
             popoverClass : 'aui-popover'

@@ -20,7 +20,7 @@
  * the aria-owns values matches the id of the container.
  */
 define(['jquery', 'eve', 'settings',
-    'eventHandlers/visibilityHandler', 
+    'eventHandlers/visibility', 
     'mixins/panelMixin', 
     'mixins/relativePositionMixin', 
     'mixins/registerPluginMixin'], 
@@ -29,7 +29,6 @@ define(['jquery', 'eve', 'settings',
 
         var Dropdown = function (element) {
             $(element).on('click.dropdown', trigger, this.toggle);
-            pop = element;
         };
 
          Dropdown.prototype = {
@@ -57,7 +56,6 @@ define(['jquery', 'eve', 'settings',
         };
 
         function open(e) {
-            debugger;
             var element = $(this),
                 panel = element.data('panel');
             
