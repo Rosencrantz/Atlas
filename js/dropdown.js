@@ -15,6 +15,13 @@
  * selector.dropdown('close');
  * selector.dropdown('toggle');
  *
+ * Events
+ * 
+ * appName.show.dropdown -> raised before the panel is displayed to the user
+ * appName.shown.dropdown -> raised after the panel is displayed to the user
+ * appName.hide.dropdown -> raised before the panel is hidden from the user 
+ * appName.hidden.dropdown -> raised after the panel is hidden from the user
+ *
  * A dropdown is a trigger that when clicked, displays a container below and aligned to the left edge
  * of the trigger. The container can be any element on the page and can contain any markup as long as 
  * the aria-owns values matches the id of the container.
@@ -28,22 +35,12 @@ define(['jquery', 'eve', 'settings',
         var trigger = '[data-' + settings.pluginAttribute + '="dropdown"]';
 
         var Dropdown = function (element) {
-            $(element).on('click.dropdown', trigger, this.toggle);
+            $(element).on('click', trigger, this.toggle);
         };
 
-         Dropdown.prototype = {
+        Dropdown.prototype = {
             toggle : function (e) {
-                var that = $(this),
-                    container = $('#' + that.attr(settings.panelAttribute)),
-                    isHidden = visibility.isHidden(container);
-
-                if(isHidden) {                
-                    open.call(this, e);
-                } else {
-                    close.call(this, e);
-                }
-
-                return !isHidden;
+                open.call(this, e);
             },
             
             open : function (e) {
@@ -72,6 +69,20 @@ define(['jquery', 'eve', 'settings',
             return false;
         }
 
+        function toggle(e) {
+            var that = $(this),
+                container = $('#' + that.attr(settings.panelAttribute)),
+                isHidden = visibility.isHidden(container);
+
+            if(isHidden) {                
+                open.call(this, e);
+            } else {
+                close.call(this, e);
+            }
+
+            return !isHidden;
+        }
+
         function position(e) {
             var container = eve.arguments[1],
                 trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
@@ -84,9 +95,10 @@ define(['jquery', 'eve', 'settings',
         registerPlugin('dropdown', Dropdown);
 
         $(function () {
-            $('html').on('click.dropdown', close);
+            $('html').on('click', close);
+            $('body').on('click', trigger, toggle);
+
             eve.on(settings.appName + '.show.dropdown', position);
-            $('body').on('click.dropdown', trigger, Dropdown.prototype.toggle);
         });
 
         return Dropdown;
