@@ -5,32 +5,25 @@ define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixin
         $(element).delegate(trigger, 'click.tab', this.open);
     };
 
-     Tab.prototype = {
-        //Inverts whatever state the container is currently in. If displayed then hide, if hidden then display.        
+     Tab.prototype = {        
         open : function (e) {
             open.call(this, e);
-        },
-
-        close : function (e) {
-            close.call(this, e);
         }
     };
 
-    //Always opens the container, regardless of it's current state
     function open(e) {
-        var trigger = $(this),
-            panel = trigger.data('panel');
+        var trigger = $('[aria-owns]', this),
+            panel = $(e.target).data('panel');
 
-        debugger;
+        close.call(this);
         panel.open();
     }
 
-    //Closes the container, regardless of it's current state
     function close(e) {
-        var trigger = $(this),
-            panel = trigger.data('panel');
-
-        panel.close();
+        var trigger = $('[aria-owns]', this).each(function () {
+            var panel = $(this).data('panel');
+            panel.close();
+        });
     }
 
     registerPlugin.call(this, 'tab', Tab);
