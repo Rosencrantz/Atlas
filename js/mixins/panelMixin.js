@@ -15,16 +15,28 @@ define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/registerPluginMixin
     };
 
     function open(func) {
+        var that = this;
         if(typeof func == "function") {
-            func.call(this);
+            func.call(that);
         }
 
-        this.container.trigger('visibility.show');
+        that.container.trigger('visibility.show');
+
+        setTimeout(function () {
+            that.container.trigger('visibility.shown');
+        }, 0);
+
         return false;
     }
 
     function close(func) {
-        this.container.trigger('visibility.hide');
+        var that = this;
+
+        that.container.trigger('visibility.hide');
+        
+        setTimeout(function () {
+            that.container.trigger('visibility.hidden');
+        }, 0);
     }
 
     registerPlugin('panel', Panel);

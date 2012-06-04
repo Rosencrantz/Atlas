@@ -93,8 +93,8 @@ define(['jquery'], function ($) {
 
 	//Setup event handlers for the visibility events and what they should do when called.
 	$(document).ready(function () {
-		$('body').on('visibility.show', function (event) { visibilityHandler.show($(event.target)); });
-		$('body').on('visibility.hide', function (event) { visibilityHandler.hide($(event.target)); });
+		$('body').on('visibility.show', function (event) {  setTimeout(function () { visibilityHandler.show($(event.target)); }, 0) });
+		$('body').on('visibility.hide', function (event) {  setTimeout(function () { visibilityHandler.hide($(event.target)); }, 0) });
 		$('body').on('visibility.invisible', function (event) { visibilityHandler.invisible($(event.target)); });
 	});
 

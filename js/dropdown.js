@@ -60,10 +60,7 @@ define(['jquery',
             var element = $(this),
                 panel = element.data('panel');
             
-            panel.open(function () {
-                var position = positioning(panel.container);
-                position.bottom().left().nudge({"left" : panel.container.outerWidth()});
-            });
+            panel.open();
         }
 
         function close(e) {
@@ -76,10 +73,21 @@ define(['jquery',
             return false;
         }
 
+        function position(e) {
+            var container = $(e.target),
+                trigger = $('[aria-owns="' + container.attr('id') + '"]'),
+                panel = trigger.data('panel'),
+                position = positioning(trigger);
+
+                debugger;
+                position.bottom().left().nudge({"left" : panel.container.outerWidth()});
+        }
+
         registerPlugin('dropdown', Dropdown);
 
         $(function () {
             $('html').on('click.dropdown.data-api', close);
+            $('body').on('visibility.show', position);
             $('body').on('click.dropdown.data-api', trigger, Dropdown.prototype.toggle);
         });
 
