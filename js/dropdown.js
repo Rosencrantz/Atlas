@@ -19,13 +19,13 @@
  * of the trigger. The container can be any element on the page and can contain any markup as long as 
  * the aria-owns values matches the id of the container.
  */
-define(['jquery', 
+define(['jquery', 'eve', 'settings',
     'eventHandlers/visibilityHandler', 
     'mixins/panelMixin', 
     'mixins/relativePositionMixin', 
     'mixins/registerPluginMixin'], 
-    function ($, visibility, panel, positioning, registerPlugin) {
-        var trigger = '[data-trigger~="dropdown"]';
+    function ($, eve, settings, visibility, panel, positioning, registerPlugin) {
+        var trigger = '[data-' + settings.pluginAttribute + '="dropdown"]';
 
         var Dropdown = function (element) {
             $(element).on('click.dropdown', trigger, this.toggle);
@@ -35,7 +35,7 @@ define(['jquery',
          Dropdown.prototype = {
             toggle : function (e) {
                 var that = $(this),
-                    container = $('#' + that.attr('aria-owns')),
+                    container = $('#' + that.attr(settings.panelAttribute)),
                     isHidden = visibility.isHidden(container);
 
                 if(isHidden) {                
@@ -57,6 +57,7 @@ define(['jquery',
         };
 
         function open(e) {
+            debugger;
             var element = $(this),
                 panel = element.data('panel');
             
@@ -74,21 +75,20 @@ define(['jquery',
         }
 
         function position(e) {
-            var container = $(e.target),
-                trigger = $('[aria-owns="' + container.attr('id') + '"]'),
+            var container = eve.arguments[1],
+                trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
                 panel = trigger.data('panel'),
                 position = positioning(trigger);
 
-                debugger;
-                position.bottom().left().nudge({"left" : panel.container.outerWidth()});
+                position.bottom().left().nudge({'left' : panel.container.outerWidth()});
         }
 
         registerPlugin('dropdown', Dropdown);
 
         $(function () {
-            $('html').on('click.dropdown.data-api', close);
-            $('body').on('visibility.show', position);
-            $('body').on('click.dropdown.data-api', trigger, Dropdown.prototype.toggle);
+            $('html').on('click.dropdown', close);
+            eve.on(settings.appName + '.show.dropdown', position);
+            $('body').on('click.dropdown', trigger, Dropdown.prototype.toggle);
         });
 
         return Dropdown;

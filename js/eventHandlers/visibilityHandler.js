@@ -1,20 +1,13 @@
 /*!
- * visibilityHandler
+ * visibilityHandler (internal use only)
  *
  * The visibilityHandler is designed to handle show/hide requests for any plugin which requires them
  * The eventHandler watches for show/hide/invisible events that are generated on a container.
  * When an event is captured the appropriate action is taken.
  */
-define(['jquery'], function ($) {
+define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 	var visibilityHandler = function _visibiltyHandler () {
 		
-		//This defines the hidden/invisble classes that you want to use
-		//You'll need to ensure that each class has the appropriate css
-		var settings = {
-				hiddenClass : 'aui-hide',
-				invisibleClass : 'aui-invisible'
-			};
-
 		//Convienence method to verify whether the given element has the
 		//appropriate hidden class applied to it
 		function isHidden(element) {
@@ -32,8 +25,8 @@ define(['jquery'], function ($) {
 		function show(element) {
 			element
 				.removeClass(settings.invisibleClass)
-				.removeClass(settings.hiddenClass);
-			
+				.removeClass(settings.hiddenClass)
+				.addClass(settings.visibleClass);
 			return element;
 		}
 
@@ -42,10 +35,10 @@ define(['jquery'], function ($) {
 		function hide(element) {
 			if (!isHidden(element)) {
 				element
+					.removeClass(settings.visibleClass)
 					.removeClass(settings.invisibleClass)
 					.addClass(settings.hiddenClass);
-			}
-			
+			}			
 			return element;
 		}
 
@@ -54,10 +47,10 @@ define(['jquery'], function ($) {
 		function invisible(element) {
 			if (isVisible(element)) {
 				element
+					.removeClass(settings.visibleClass)
 					.removeClass(settings.hiddenClass)
 					.addClass(settings.invisibleClass);
 			}
-
 			return element;
 		}
 
@@ -93,9 +86,9 @@ define(['jquery'], function ($) {
 
 	//Setup event handlers for the visibility events and what they should do when called.
 	$(document).ready(function () {
-		$('body').on('visibility.show', function (event) {  setTimeout(function () { visibilityHandler.show($(event.target)); }, 0) });
-		$('body').on('visibility.hide', function (event) {  setTimeout(function () { visibilityHandler.hide($(event.target)); }, 0) });
-		$('body').on('visibility.invisible', function (event) { visibilityHandler.invisible($(event.target)); });
+		eve.on(settings.appName + '.show.*.panel', function () { visibilityHandler.show(eve.arguments[1]);});
+		eve.on(settings.appName + '.hide.*.panel', function () { visibilityHandler.hide(eve.arguments[1]);});
+		eve.on(settings.appName + '.invisible.*.panel', function () { visibilityHandler.invisible(eve.arguments[1]);});
 	});
 
 	return visibilityHandler;

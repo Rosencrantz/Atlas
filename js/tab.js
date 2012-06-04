@@ -1,5 +1,5 @@
-define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, visibility, panel, positioning, registerPlugin) {
-    var trigger = '[data-trigger~="tab"]';
+define(['jquery', 'settings', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, settings, visibility, panel, positioning, registerPlugin) {
+    var trigger = '[data-' + settings.pluginAttribute + '="tab"]';
 
     var Tab = function (element) {
         $(element).delegate(trigger, 'click.tab', this.open);
@@ -12,7 +12,7 @@ define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixin
     };
 
     function open(e) {
-        var trigger = $('[aria-owns]', this),
+        var trigger = $('[' + settings.panelAttribute + ']', this),
             panel = $(e.target).data('panel');
 
         close.call(this);
@@ -20,7 +20,7 @@ define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixin
     }
 
     function close(e) {
-        var trigger = $('[aria-owns]', this).each(function () {
+        var trigger = $('['+ settings.panelAttribute + ']', this).each(function () {
             var panel = $(this).data('panel');
             panel.close();
         });
@@ -29,7 +29,7 @@ define(['jquery', 'eventHandlers/visibilityHandler', 'mixins/panelMixin', 'mixin
     registerPlugin.call(this, 'tab', Tab);
 
     $(function () {
-        $('body').delegate(trigger, 'click.tab.data-api', Tab.prototype.open);
+        $('body').on('click.tab', trigger, Tab.prototype.open);
     });
 
     return Tab;
