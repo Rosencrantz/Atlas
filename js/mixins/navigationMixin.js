@@ -1,26 +1,31 @@
-/**
- * NavigationMixin
- *
- * Provides some basic methods for navigating through lists of compontents
- * And setting active classes on them
- */
-define('mixins/navigationMixin',['jquery'], function ($) {
+define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle'], function ($, eve, settings, control) {
 
 	function navigationMixin(container) {
 		var container = $(container),
 			children = container.children(),
-			activeClass = 'aui-active';
+			activeClass = settings.activeClass;
 
-		function clearActive() {
-			$('.' + activeClass, container).removeClass(activeClass);
-		}
+		function deactivate(element) {
+			dispatch('deactivate', 'deactivated', true)
+            element.each(function () {
+	            eve(settings.appName + '.menu.deactivate.item', element);
 
-        function setActive(element) {
-            var focusable = ['a','input','select','textarea','button'].join();
-            
-            clearActive();
-            element.addClass(activeClass);
-            $($(focusable, element)[0]).focus();            
+	            setTimeout(function () {
+	            	eve(settings.appName + '.menu.deactivated.item', element);
+	            }, 0);
+			});
+        }
+
+        function activate(element) {
+            deactivate($('.' + activeClass, container));
+
+            element.each(function () {
+	            eve(settings.appName + '.menu.activate.item', this);
+
+	            setTimeout(function () {
+	            	eve(settings.appName + '.menu.activated.item', this);
+	            }, 0);
+        	}
         }
 
 		function getActiveIndex(children) {
@@ -34,14 +39,12 @@ define('mixins/navigationMixin',['jquery'], function ($) {
 
 		return {
 			first : function () {
-				clearActive();
-				setActive($(children[0]));;
+				activate($(children[0]));;
 				return this;
 			},
 
 			last : function () {
-				clearActive();
-				setActive($(children[children.length-1]));;
+				activate($(children[children.length-1]));;
 				return this;
 			},
 
@@ -49,8 +52,7 @@ define('mixins/navigationMixin',['jquery'], function ($) {
 				var activeIndex = getActiveIndex(children),
 					nextIndex = ((activeIndex + 1) >= children.length) ? activeIndex : activeIndex+1;
 
-				setActive($(children[nextIndex]));
-
+				activate($(children[nextIndex]));
                 return this;
 			},
 
@@ -58,18 +60,17 @@ define('mixins/navigationMixin',['jquery'], function ($) {
 				var activeIndex = getActiveIndex(children),
 					previousIndex = (activeIndex <= 0) ? 0 : activeIndex - 1;
 
-				setActive($(children[previousIndex]));
-
+				activate($(children[previousIndex]));
 				return this;
 			},
 
 			clear: function() {
-				clearActive();
+				deactivate();
 				return this;
 			},
 
 			move : function (index) {
-				clearActive();
+				deactivate();
 				$(children[index]).addClass(activeClass);
 				return this;
 			},

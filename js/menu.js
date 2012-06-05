@@ -4,7 +4,7 @@
  * Add keyboard navigation to your menus. Provides vertical navigation using the up/down tab/shift+tab keys
  * Supports moving between multiple menus through the the use of the aria-flowto attribute. 
  */
-define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, navigation, keycode, registerPlugin) {
+define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, eve, settings, navigation, keycode, registerPlugin) {
     var trigger = '[data-trigger="menu"]';
 
     var Menu = function (element) {
@@ -57,6 +57,9 @@ define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins
             that.on('mouseover', function (event) { mouseNavigation.apply(that, [event]) });
             that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
         });
+
+        eve.on(settings.appName + '.menu.activate', function () { debugger; console.log('activate')});
+        eve.on(settings.appName + '.menu.activated', function () { console.log('activated')});
     });
 
     return Menu;
