@@ -2,30 +2,34 @@ define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle'], function
 
 	function navigationMixin(container) {
 		var container = $(container),
+			pluginId = container.data(settings.pluginAttribute),
 			children = container.children(),
 			activeClass = settings.activeClass;
 
-		function deactivate(element) {
-			dispatch('deactivate', 'deactivated', true)
-            element.each(function () {
-	            eve(settings.appName + '.menu.deactivate.item', element);
+		function dispatch(preEvent, postEvent, element) {   
+        	eve(preEvent, element);
 
-	            setTimeout(function () {
-	            	eve(settings.appName + '.menu.deactivated.item', element);
-	            }, 0);
-			});
-        }
+        	setTimeout(function () {
+        		eve(postEvent, element);
+        	}, 0);
+		}
 
         function activate(element) {
-            deactivate($('.' + activeClass, container));
+            var preEvent = [settings.appName, 'activate', pluginId, 'item'].join('.'),
+            	postEvent = [settings.appName, 'activated', pluginId, 'item'].join('.');
 
-            element.each(function () {
-	            eve(settings.appName + '.menu.activate.item', this);
+            children.filter(':not.' + activeClass).each(function () {
+            	control.deactivate(this);
+            });
 
-	            setTimeout(function () {
-	            	eve(settings.appName + '.menu.activated.item', this);
-	            }, 0);
-        	}
+            dispatch(preEvent, postEvent, element);
+        };
+
+		function deactivate(element) {
+            var preEvent = [settings.appName, 'deactivate', pluginId, 'item'].join('.'),
+            	postEvent = [settings.appName, 'deactivated', pluginId, 'item'].join('.');
+	
+            dispatch(preEvent, postEvent, element);
         }
 
 		function getActiveIndex(children) {
@@ -65,17 +69,15 @@ define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle'], function
 			},
 
 			clear: function() {
-				deactivate();
+				deactivate(children);
 				return this;
 			},
 
 			move : function (index) {
-				deactivate();
-				$(children[index]).addClass(activeClass);
+				activate(children[index]);
 				return this;
 			},
 
-			//Unsure about the following three functions
 			container : function () {
 				return container;
 			},

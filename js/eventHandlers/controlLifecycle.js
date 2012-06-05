@@ -1,79 +1,88 @@
-/*!
- * visibilityHandler (internal use only)
+/*
+ * === ControlLifecycle (internal use only) ===
  *
- * The visibilityHandler is designed to handle show/hide requests for any plugin which requires them
- * The eventHandler watches for show/hide/invisible events that are generated on a container.
- * When an event is captured the appropriate action is taken.
+ * The controlLifecycle object is designed to handle to events common to most user
+ * interfaces. Showing, hiding, activating and disabling are all in the pervue of 
+ * the controlLifecycle.
+ *
+ *
+ * === Events ===
+ * 
+ * show -> Removes any hidden or invisible class from the given element
+ * hide -> Adds a hidden class to the element 
+ * activate -> Adds an active class to the element. Focuses the first child element
+ * deactivate -> Removes an active class from an element
+ * disable -> Disables the given element
+ * enable -> Enables the given element. Focuses the first child element
+ *
  */
 define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 	var controlLifecycle = function _controlLifecycle () {
 		
-		//Convienence method to verify whether the given element has the
-		//appropriate hidden class applied to it
 		function isHidden(element) {
-			return element.is('.' + settings.hiddenClass);
+			return $(element).is('.' + settings.hiddenClass);
 		}
 
-		//Convienence method to verify whether the given element has the
-		//appropriate invisible class applied to it.
 		function isVisible(element) {
-			return !element.is('.' + settings.invisibleClass);
+			return !$(element).is('.' + settings.invisibleClass);
 		}
 
 		function isActive(element) {
-			return !element.is('.' + settings.activeClass);
+			return !$(element).is('.' + settings.activeClass);
 		}
 
-		//Remove any existing visibility class making the given element
-		//visible
+		function isDisabled(element) {
+			return $(element).is('.' + settings.disabledClass);
+		}
+
 		function show(element) {
-			element
+			$(element)
 				.removeClass(settings.invisibleClass)
-				.removeClass(settings.hiddenClass)
-				.addClass(settings.visibleClass);
+				.removeClass(settings.hiddenClass);
 
 			return element;
 		}
 
-		//Remove any existing visibility class and add the hiddenClass
-		//to the specified element
 		function hide(element) {
-			element
-				.removeClass(settings.visibleClass)
+			$(element)
 				.removeClass(settings.invisibleClass)
 				.addClass(settings.hiddenClass);
 			
 			return element;
 		}
 
-		function activate(element) {
-			element
-				.removeClass(settings.deactiveClass)
-				.addClass(settings.activeClass);
-			
-			return element;
-		}
-
-		function deactivate(element) {
-			element
-				.removeClass(settings.activeClass)
-				.addClass(settings.deactiveClass);
-
-			return element;
-		}
-
-		//Remove any existing visibility class and add the invisibleClass
-		//to the specified element
 		function invisible(element) {
-			element
-				.removeClass(settings.visibleClass)
+			$(element)
 				.removeClass(settings.hiddenClass)
 				.addClass(settings.invisibleClass);
 
 			return element;
 		}
 
-		//Return a public interface to the methods listed above
+		function activate(element) {
+			$(element)
+				.addClass(settings.activeClass);
+			
+			return element;
+		}
+
+		function deactivate(element) {
+			$(element)
+				.removeClass(settings.activeClass);
+
+			return element;
+		}
+
+		function disable(element) {
+			$(element)
+				.addClass(settings.disabledClass);
+		}
+
+		function enable(element) {
+			$(element)
+				.removeClass(settings.disabledClass);
+		}
+
 		return {
 			show : function (element) {
 				show(element);
@@ -91,12 +100,20 @@ define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 				deactivate(element);
 			},
 
+			disable : function(element) {
+				disable(element);
+			},
+
+			enable : function(element) {
+				enable(element);
+			},
+
 			invisible : function (element) {
 				invisible(element);
 			},
 
 			focus : function (element) {
-				if (!isHidden(element) && isVisible(element)) {
+				if(!isHidden(element) && !isDisabled(element)) {
 					$($('a,input,select,textarea,button', element)[0]).focus();
 				}
 			},
@@ -111,18 +128,24 @@ define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 
 			isActive : function (element) {
 				return isActive(element);
+			},
+
+			isDisabled : function (element) {
+				return isDisabled(element);
 			}
 		};
 	}();
 
-	//Setup event handlers for the visibility events and what they should do when called.
 	$(document).ready(function () {
 		eve.on(settings.appName + '.show.*.panel', function () { controlLifecycle.show(eve.arguments[1]);});
 		eve.on(settings.appName + '.hide.*.panel', function () { controlLifecycle.hide(eve.arguments[1]);});
 		eve.on(settings.appName + '.invisible.*.item', function () { controlLifecycle.invisible(eve.arguments[1]);});
 		eve.on(settings.appName + '.activate.*.item', function () { controlLifecycle.activate(eve.arguments[1]);});
+		eve.on(settings.appName + '.activated.*.item', function () { controlLifecycle.focus(eve.arguments[1]);})
 		eve.on(settings.appName + '.deactivate.*.item', function () { controlLifecycle.deactivate(eve.arguments[1]);});
+		eve.on(settings.appName + '.disable.*.item', function () { controlLifecycle.disable(eve.arguments[1]);});
+		eve.on(settings.appName + '.enable.*.item', function () { controlLifecycle.enable(eve.arguments[1]);});
 	});
 
-	return visibilityHandler;
+	return controlLifecycle;
 });

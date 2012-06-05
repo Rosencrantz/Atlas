@@ -5,8 +5,7 @@ define([], function () {
 		panelAttribute : 'aria-owns',
 		hiddenClass : 'aui-hide',
 		invisibleClass : 'aui-invisible',
-		visibleClass : '',
 		activeClass : 'aui-active',
-		deactiveClass : ''
+		disabledClass : 'aui-disabled'
 	}
 });

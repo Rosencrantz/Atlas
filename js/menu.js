@@ -44,7 +44,15 @@ define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/ke
         return this;
     }
 
-    function mouseNavigation(nav, event) { }
+    function mouseNavigation(event) {
+        var nav = $(this).data('nav');
+        nav.clear(); 
+        eve('atlas.activate.menu.item', event.target);
+
+        setTimeout(function () {
+            eve('atlas.activated.menu.item', event.target);
+        }, 0);
+    }
 
     registerPlugin('menu', Menu);
     
@@ -57,9 +65,6 @@ define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/ke
             that.on('mouseover', function (event) { mouseNavigation.apply(that, [event]) });
             that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
         });
-
-        eve.on(settings.appName + '.menu.activate', function () { debugger; console.log('activate')});
-        eve.on(settings.appName + '.menu.activated', function () { console.log('activated')});
     });
 
     return Menu;
