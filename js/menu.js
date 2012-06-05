@@ -1,10 +1,33 @@
-/*!
- * Menu
+/*
+ * === Menu ===
  *
- * Add keyboard navigation to your menus. Provides vertical navigation using the up/down tab/shift+tab keys
- * Supports moving between multiple menus through the the use of the aria-flowto attribute. 
+ * The menu is a small addition that provides vertical navigation via the up and down arrow keys.
+ *
+ * === Markup ===
+ * 
+ * <div data-trigger="menu">
+ *     <a href="">Item 1</a>
+ *     <a href="">Item 2</a>
+ * </div>
+ *
+ * <ul data-trigger="menu">
+ *     <li><a href="">Item 1</a></li>
+ *     <li><a href="">Item 2</a></li>
+ * </ul>
+ * 
+ * === Javascript ===
+ *
+ * TBC
+ *
+ * === Events ===
+ * 
+ * appName.activate.menu -> raised before an item in the menu is made active
+ * appName.activated.menu -> raised after an item in the menu is made active
+ * appName.deactivate.menu -> raised before an item in the menu is made deactive
+ * appName.deactivated.menu -> raised after an item in the menu is made deactive
+ *
  */
-define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, eve, settings, navigation, keycode, registerPlugin) {
+define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, eve, settings, navigation, keycode, registerPlugin) {
     var trigger = '[data-trigger="menu"]';
 
     var Menu = function (element) {

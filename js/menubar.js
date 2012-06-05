@@ -1,10 +1,4 @@
-/*!
- * Menu
- *
- * Add keyboard navigation to your menus. Provides vertical navigation using the up/down tab/shift+tab keys
- * Supports moving between multiple menus through the the use of the aria-flowto attribute. 
- */
-define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, eve, settings, navigation, keycode, registerPlugin) {
+define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, eve, settings, navigation, keycode, registerPlugin) {
     var trigger = '[data-trigger="menubar"]';
 
     var Menubar = function (element) {
