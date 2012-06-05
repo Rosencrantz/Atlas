@@ -13,7 +13,7 @@ define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/ke
 
         element.data('nav', nav);
         element.on('mouseover', this.keyboardNavigation);
-        element.on('keydown', this.mouseNavigation);
+        element.on('keyup', this.mouseNavigation);
     };
 
     //Provide suitable keyboard navigation for the specified container
@@ -44,14 +44,9 @@ define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/ke
         return this;
     }
 
-    function mouseNavigation(event) {
-        var nav = $(this).data('nav');
-        nav.clear(); 
-        eve('atlas.activate.menu.item', event.target);
-
-        setTimeout(function () {
-            eve('atlas.activated.menu.item', event.target);
-        }, 0);
+    function mouseNavigation(event, container, index) {
+        var nav = $(container).data('nav');
+        event.type == "mouseenter" && nav.move(index);
     }
 
     registerPlugin('menu', Menu);
@@ -62,8 +57,13 @@ define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/ke
                 nav = navigation(that);
 
             that.data('nav', nav);
-            that.on('mouseover', function (event) { mouseNavigation.apply(that, [event]) });
             that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
+            that.on('mouseleave', function () { $(this).data('nav').clear() });
+
+            for(var i=0, ii=that.children().length; i < ii; i++) {
+                activeItem = $(that.children()[i]);
+                activeItem.on('mouseenter', function (item, container, index) { return function(event) { mouseNavigation.apply(item, [event, container, index]) } }(activeItem, that, i));
+            }
         });
     });
 

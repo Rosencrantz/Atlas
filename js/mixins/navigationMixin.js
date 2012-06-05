@@ -29,7 +29,9 @@ define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle'], function
             var preEvent = [settings.appName, 'deactivate', pluginId, 'item'].join('.'),
             	postEvent = [settings.appName, 'deactivated', pluginId, 'item'].join('.');
 	
-            dispatch(preEvent, postEvent, element);
+            element.each(function () {
+            	dispatch(preEvent, postEvent, $(this));
+            });            	
         }
 
 		function getActiveIndex(children) {

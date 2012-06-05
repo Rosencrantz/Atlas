@@ -1,17 +1,22 @@
 /*!
  * Menu
- * 
+ *
+ * Add keyboard navigation to your menus. Provides vertical navigation using the up/down tab/shift+tab keys
+ * Supports moving between multiple menus through the the use of the aria-flowto attribute. 
  */
-define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin', 'mixins/registerPluginMixin'], function ($, navigation, keycode, registerPlugin) {
+define('menu',['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, eve, settings, navigation, keycode, registerPlugin) {
     var trigger = '[data-trigger="menubar"]';
 
-    var Menu = function (element) {
-        var nav = navigation($(element));
-        $(element).data('nav', nav);
-        $(element).on('mouseover', this.keyboardNavigation);
-        $(element).on('keydown', this.mouseNavigation);
+    var Menubar = function (element) {
+        var element = $(element),
+            nav = navigation($(element));
+
+        element.data('nav', nav);
+        element.on('mouseover', this.keyboardNavigation);
+        element.on('keyup', this.mouseNavigation);
     };
 
+    //Provide suitable keyboard navigation for the specified container
     function keyboardNavigation (event) { 
         var key = event.keyCode,
             shiftKey = event.shiftKey,
@@ -39,23 +44,28 @@ define('menu',['jquery', 'mixins/navigationMixin', 'mixins/keycodeMixin', 'mixin
         return this;
     }
 
-    function mouseNavigation(nav, event) { }
-
-    Menu.prototype = {
+    function mouseNavigation(event, container, index) {
+        var nav = $(container).data('nav');
+        event.type == "mouseenter" && nav.move(index);
     }
 
-    registerPlugin('menu', Menu);
-
+    registerPlugin('menubar', Menu);
+    
     $(function () {
         $('[data-trigger="menubar"]').each(function () {
-            var that = this,
-                nav = navigation($(this));
+            var that = $(this),
+                nav = navigation(that);
 
-            $(that).data('nav', nav);
-            $(this).on('mouseover', function (event) { mouseNavigation.apply(that, [event]) });
-            $(this).on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
+            that.data('nav', nav);
+            that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
+            that.on('mouseleave', function () { $(this).data('nav').clear() });
+
+            for(var i=0, ii=that.children().length; i < ii; i++) {
+                activeItem = $(that.children()[i]);
+                activeItem.on('mouseenter', function (item, container, index) { return function(event) { mouseNavigation.apply(item, [event, container, index]) } }(activeItem, that, i));
+            }
         });
     });
 
-    return Menu;
+    return Menubar;
 });

@@ -118,6 +118,10 @@ define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 				}
 			},
 
+			blur : function (element) {
+				$($('a,input,select,textarea,button', element)[0]).blur();
+			},
+			
 			isHidden : function (element) {
 				return isHidden(element);
 			},
@@ -143,6 +147,7 @@ define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 		eve.on(settings.appName + '.activate.*.item', function () { controlLifecycle.activate(eve.arguments[1]);});
 		eve.on(settings.appName + '.activated.*.item', function () { controlLifecycle.focus(eve.arguments[1]);})
 		eve.on(settings.appName + '.deactivate.*.item', function () { controlLifecycle.deactivate(eve.arguments[1]);});
+		eve.on(settings.appName + '.deactivated.*.item', function () { controlLifecycle.blur(eve.arguments[1]);});
 		eve.on(settings.appName + '.disable.*.item', function () { controlLifecycle.disable(eve.arguments[1]);});
 		eve.on(settings.appName + '.enable.*.item', function () { controlLifecycle.enable(eve.arguments[1]);});
 	});
