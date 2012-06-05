@@ -1,9 +1,9 @@
 define(['jquery', 'eve', 'settings',
-    'eventHandlers/visibility', 
+    'eventHandlers/controlLifecycle', 
     'mixins/panelMixin', 
     'mixins/relativePositionMixin', 
     'mixins/registerPluginMixin'], 
-    function ($, eve, settings, visibility, panel, positioning, registerPlugin) {
+    function ($, eve, settings, control, panel, positioning, registerPlugin) {
         var trigger = '[data-' + settings.pluginAttribute + '="dialog"]';
 
         var Dropdown = function (element) {
@@ -14,7 +14,7 @@ define(['jquery', 'eve', 'settings',
             toggle : function (e) {
                 var that = $(this),
                     container = $('#' + that.attr(settings.panelAttribute)),
-                    isHidden = visibility.isHidden(container);
+                    isHidden = control.isHidden(container);
 
                 if(isHidden) {                
                     open.call(this, e);
@@ -63,8 +63,10 @@ define(['jquery', 'eve', 'settings',
 
         $(function () {
             $('html').on('click.dropdown', close);
-            eve.on(settings.appName + '.show.dialog', position);
             $('body').on('click.dropdown', trigger, Dropdown.prototype.toggle);
+
+            eve.on(settings.appName + '.show.dialog', position);
+
         });
 
         return Dropdown;
