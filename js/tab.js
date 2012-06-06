@@ -1,35 +1,35 @@
-define(['jquery', 'settings', 'mixins/panelMixin', 'mixins/relativePositionMixin', 'mixins/registerPluginMixin'], function ($, settings, panel, positioning, registerPlugin) {
+define(['jquery', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatcher', 'mixins/relativePosition', 'mixins/register'], function ($, settings, control, dispatcher, position, register) {
     var trigger = '[data-' + settings.pluginAttribute + '="tab"]';
 
     var Tab = function (element) {
-        $(element).delegate(trigger, 'click.tab', this.open);
+        $(element).on('click', trigger, this.open);
     };
 
      Tab.prototype = {        
-        open : function (e) {
-            open.call(this, e);
+        open : function () {
+            open.call(this);
         }
     };
 
-    function open(e) {
-        var trigger = $('[' + settings.panelAttribute + ']', this),
-            panel = $(e.target).data('panel');
-
-        close.call(this);
-        panel.open();
+    function open() {
+        if($(this).is('[' + settings.panelAttribute + ']')) {
+            close.call($(this).parents(trigger));
+            dispatcher.dispatch.call(this, 'show');
+        }
     }
 
-    function close(e) {
-        var trigger = $('['+ settings.panelAttribute + ']', this).each(function () {
-            var panel = $(this).data('panel');
-            panel.close();
+    function close() {
+        $('[' + settings.panelAttribute + ']', this).each(function () {
+            control.hide($('#' + $(this).attr(settings.panelAttribute)));
         });
+
+        return false;
     }
 
-    registerPlugin.call(this, 'tab', Tab);
+    register.call(this, 'tab', Tab);
 
     $(function () {
-        $('body').on('click.tab', trigger, Tab.prototype.open);
+        $('body').on('click', trigger, function(e) { debugger; Tab.prototype.open.call(e.target); });
     });
 
     return Tab;

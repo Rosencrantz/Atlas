@@ -27,8 +27,8 @@
  * appName.deactivated.menu -> raised after an item in the menu is made deactive
  *
  */
-define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, eve, settings, navigation, keycode, registerPlugin) {
-    var trigger = '[data-trigger="menu"]';
+define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mixins/register'], function ($, eve, settings, navigation, keycode, register) {
+    var trigger = '[' + settings.pluginAttribute + '="menu"]';
 
     var Menu = function (element) {
         var element = $(element),
@@ -36,6 +36,7 @@ define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMi
 
         element.data('nav', nav);
         element.on('mouseover', this.keyboardNavigation);
+        element.on('keydown keypress', function(event) { event.preventDefault(); });
         element.on('keyup', this.mouseNavigation);
     };
 
@@ -43,14 +44,20 @@ define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMi
     function keyboardNavigation (event) { 
         var key = event.keyCode,
             shiftKey = event.shiftKey,
-            nav = $(this).data('nav');
+            nav = $(this).data('nav'),
+            previousMenu = $('[aria-flowto="' + nav.container().attr('id') + '"]').data('nav'),
+            nextMenu = $('#' + nav.container().attr('aria-flowto')).data('nav');
 
         event.preventDefault();
 
         if(key && (key == keycode.DOWN || (!shiftKey && key == keycode.TAB))) {
             if(nav.activeIndex() == nav.length()-1) {
                 nav.clear();
-                $('#' + nav.container().attr('aria-flowto')).data('nav').first();
+                if(nextMenu) {
+                    nextMenu.first();
+                } else {
+                    nav.move(nav.length()-1);
+                }
             } else {
                 nav.next();
             }
@@ -60,7 +67,11 @@ define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMi
             if(nav.activeIndex() > 0) {
                 nav.previous();
             } else {
-               $('[aria-flowto="' + nav.container().attr('id') + '"]').data('nav').last(); 
+                if(previousMenu) {
+                    previousMenu.last();
+                } else {
+                    nav.move(0);
+                } 
             }
         }
         
@@ -72,14 +83,15 @@ define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMi
         event.type == "mouseenter" && nav.move(index);
     }
 
-    registerPlugin('menu', Menu);
+    register('menu', Menu);
     
     $(function () {
-        $('[data-trigger="menu"]').each(function () {
+        $('[' + settings.pluginAttribute + '="menu"]').each(function () {
             var that = $(this),
                 nav = navigation(that);
 
             that.data('nav', nav);
+            that.on('keydown keypress', function(event) { event.preventDefault(); });
             that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
             that.on('mouseleave', function () { $(this).data('nav').clear() });
 

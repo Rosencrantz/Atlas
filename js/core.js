@@ -1,4 +1,4 @@
-define(['jquery', 'dropdown', 'tab', 'dialog', 'popover', 'menu', 'menubar'], function ($) {
+define(['jquery', 'dropdown', 'tab', 'menu'], function ($) {
 	$(document).ready(function () {
 		console.log('aui loaded');
 	});

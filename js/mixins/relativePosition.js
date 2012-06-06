@@ -5,7 +5,7 @@
 define(['jquery'], function($) {
 	var fixedElement, container, fixedLeft, fixedTop, containerLeft, containerTop;
 
-	function relativePositionMixin(element, container) {
+	function relativePosition(element, container) {
 		fixedElement = $(element);
 		container = container || $('#' + fixedElement.attr('aria-owns'));
 		fixedTop = fixedElement.offset() ? fixedElement.offset().top : 0;
@@ -83,5 +83,5 @@ define(['jquery'], function($) {
 		};
 	}
 
-	return relativePositionMixin;
+	return relativePosition;
 });

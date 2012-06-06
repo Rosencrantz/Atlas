@@ -28,11 +28,11 @@
  *
  */
 define(['jquery', 'eve', 'settings',
-    'eventHandlers/visibility', 
-    'mixins/panelMixin', 
-    'mixins/relativePositionMixin', 
-    'mixins/registerPluginMixin'], 
-    function ($, eve, settings, visibility, panel, positioning, registerPlugin) {
+    'eventHandlers/controlLifecycle', 
+    'mixins/dispatcher', 
+    'mixins/relativePosition', 
+    'mixins/register'], 
+    function ($, eve, settings, control, dispatcher, positioning, register) {
         var trigger = '[data-' + settings.pluginAttribute + '="dropdown"]';
 
         var Dropdown = function (element) {
@@ -40,60 +40,52 @@ define(['jquery', 'eve', 'settings',
         };
 
         Dropdown.prototype = {
-            toggle : function (e) {
-                open.call(this, e);
+            toggle : function () {
+                toggle.call(this)
             },
             
-            open : function (e) {
-                open.call(this, e);
+            open : function () {
+                open.call(this);
+                
             },
 
-            close : function (e) {
-                close.call(this, e);
+            close : function () {
+                close.call(this);
             }
         };
 
-        function open(e) {
-            var element = $(this),
-                panel = element.data('panel');
-            
-            panel.open();
+        function open() {
+            dispatcher.dispatch.call(this, 'show');
         }
 
-        function close(e) {
+        function close() {
             $(trigger).each(function () {
-                var that = $(this),
-                    panel = that.data('panel');
-
-                panel.close();   
+                control.hide('#' + $(this).attr(settings.panelAttribute));
             });
+
             return false;
         }
 
-        function toggle(e) {
+        function toggle() {
             var that = $(this),
                 container = $('#' + that.attr(settings.panelAttribute)),
-                isHidden = visibility.isHidden(container);
+                isHidden = control.isHidden(container);
 
-            if(isHidden) {                
-                open.call(this, e);
-            } else {
-                close.call(this, e);
-            }
+            close.call(this);
+            isHidden && open.call(this);
 
             return !isHidden;
         }
 
-        function position(e) {
+        function position() {
             var container = eve.arguments[1],
                 trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
-                panel = trigger.data('panel'),
-                position = positioning(trigger);
+                pos = positioning(trigger);
 
-                position.bottom().left().nudge({'left' : panel.container.outerWidth()});
+                pos.bottom().left().nudge({'left' : container.outerWidth()});
         }
 
-        registerPlugin('dropdown', Dropdown);
+        register('dropdown', Dropdown);
 
         $(function () {
             $('html').on('click', close);
