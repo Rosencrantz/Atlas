@@ -1,5 +1,6 @@
 makeFolder = build
 appName = atlas
+port = 8000
 
 clean: 
 	rm -rf $(makeFolder)/
@@ -22,3 +23,6 @@ $(appName): clean
 watch:
 	echo "Watching less files..."; \
 	watchr -e "watch('less/.*\.less') { system('make $(appName)') }"
+
+run: $(appName)
+	cd build/examples; python -m SimpleHTTPServer $(port)
