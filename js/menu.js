@@ -92,7 +92,7 @@ define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mix
                 nav = navigation(that);
 
             that.data('nav', nav);
-            that.on('keydown keypress', function(event) { event.preventDefault(); });
+            //that.on('keydown keypress', function(event) { event.preventDefault(); });
             that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
             that.on('mouseleave', function () { $(this).data('nav').clear() });
 

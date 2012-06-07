@@ -62,7 +62,7 @@ define(['jquery', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatch
     register.call(this, 'tab', Tab);
 
     $(function () {
-        $('body').on('click', trigger, function(e) { debugger; Tab.prototype.open.call(e.target); });
+        $('body').on('click', trigger, function(e) { Tab.prototype.open.call(e.target); });
     });
 
     return Tab;
