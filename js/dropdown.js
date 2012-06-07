@@ -80,9 +80,12 @@ define(['jquery', 'eve', 'settings',
         function position() {
             var container = eve.arguments[1],
                 trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
+                align = (trigger.data('valign') || 'bottom'),
+                valign = (trigger.data('align') || 'left'),
                 pos = positioning(trigger);
 
-                pos.bottom().left().nudge({'left' : container.outerWidth()});
+                pos[align]();
+                pos[valign]();
         }
 
         register('dropdown', Dropdown);

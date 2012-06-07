@@ -34,12 +34,26 @@ define(['jquery'], function($) {
 
 			left : function (item) {
 				container = setContainer(item);
+				containerLeft =  fixedLeft;
+				container.css('left', containerLeft);
+				return this;
+			},
+
+			farLeft : function () {
+				container = setContainer(item);
 				containerLeft =  fixedLeft - container.outerWidth();
 				container.css('left', containerLeft);
 				return this;
 			},
 
 			right : function (item) {
+				container = setContainer(item);
+				containerLeft = fixedLeft + (fixedElement.outerWidth() - container.outerWidth());
+				container.css('left', containerLeft);
+				return this;
+			},
+
+			farRight : function () {
 				container = setContainer(item);
 				containerLeft = fixedLeft + fixedElement.outerWidth();
 				container.css('left', containerLeft);
