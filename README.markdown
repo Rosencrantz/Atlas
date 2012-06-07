@@ -8,7 +8,7 @@ In an effort to provide simple patterns Atlas provides a set of small components
 
 The best this to do if you want to understand Atlas is to fork the respository and start hacking around with it. If you are interested in running the system locally fork it and then open a terminal window in the root of the project. From there type: 
 
-make run
+> make run
 
 This will start a simple http server that you can then use to develop, browse documentation, run tests and have fun!
 
