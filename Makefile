@@ -27,3 +27,6 @@ watch:
 
 run: $(appName)
 	python -m SimpleHTTPServer $(port)
+
+debug:
+	python -m SimpleHTTPServer $(port)
