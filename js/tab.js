@@ -55,8 +55,6 @@ define(['jquery', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatch
         $('[' + settings.panelAttribute + ']', this).each(function () {
             control.hide($('#' + $(this).attr(settings.panelAttribute)));
         });
-
-        return false;
     }
 
     register.call(this, 'tab', Tab);

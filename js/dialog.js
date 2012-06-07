@@ -33,8 +33,6 @@ define(['jquery', 'eve', 'settings',
             $(trigger).each(function () {
                 control.hide('#' + $(this).attr(settings.panelAttribute));
             });
-
-            return false;
         }
 
         function toggle() {

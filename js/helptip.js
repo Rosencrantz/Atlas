@@ -33,8 +33,6 @@ define(['jquery', 'eve', 'settings',
             $(trigger).each(function () {
                 control.hide('#' + $(this).attr(settings.panelAttribute));
             });
-
-            return false;
         }
 
         function toggle() {
@@ -62,7 +60,7 @@ define(['jquery', 'eve', 'settings',
         register('helptip', Helptip);
 
         $(function () {
-            $('html').on('click', close);
+            $('body').on('click', close);
             $('body').on('click', trigger, toggle);
 
             eve.on(settings.appName + '.show.helptip', position);
