@@ -1,5 +1,5 @@
 define(['jquery'], function ($) {
-    return function(pluginName, plugin) {
+    return function (pluginName, plugin) {
         $.fn[pluginName] = function (option) {
             return this.each(function () {
                 var $this = $(this),

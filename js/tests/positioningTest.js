@@ -51,9 +51,9 @@ require(['mixins/relativePosition'], function (placement) {
 		equal($('#qunit-fixture').offset().top, $('#container').offset().top);
 	});	
 
-	test("Placement.veryTop Aligns the top of the trigger with the bottom of the container", function () {
+	test("Placement.above Aligns the top of the trigger with the bottom of the container", function () {
 		var myPlacement = placement($('#qunit-fixture'));
-		myPlacement.veryTop($('#container'));
+		myPlacement.above($('#container'));
 		equal($('#qunit-fixture').offset().top, $('#container').offset().top + $('#container').outerHeight());
 	});	
 
@@ -63,9 +63,9 @@ require(['mixins/relativePosition'], function (placement) {
 		equal($('#qunit-fixture').offset().top + $('#qunit-fixture').outerHeight() - $('#container').outerHeight(), $('#container').offset().top);
 	});	
 
-	test("Placement.veryBottom Aligns the bottom of the trigger with the top of the container", function () {
+	test("Placement.below Aligns the bottom of the trigger with the top of the container", function () {
 		var myPlacement = placement($('#qunit-fixture'));
-		myPlacement.veryBottom($('#container'));
+		myPlacement.below($('#container'));
 		equal($('#qunit-fixture').offset().top + $('#qunit-fixture').outerHeight(), $('#container').offset().top);
 	});	
 

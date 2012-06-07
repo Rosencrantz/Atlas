@@ -13,3 +13,5 @@ The best this to do if you want to understand Atlas is to fork the respository a
 This will start a simple http server that you can then use to develop, browse documentation, run tests and have fun!
 
 ##Requirements
+
+You'll need a bunch of stuff. What would be really useful would be some kind of simple install script...

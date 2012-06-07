@@ -80,7 +80,7 @@ define(['jquery', 'eve', 'settings',
         function position() {
             var container = eve.arguments[1],
                 trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
-                align = (trigger.data('valign') || 'bottom'),
+                align = (trigger.data('valign') || 'below'),
                 valign = (trigger.data('align') || 'left'),
                 pos = positioning(trigger);
 

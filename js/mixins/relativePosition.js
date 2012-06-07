@@ -48,7 +48,7 @@ define(['jquery'], function($) {
 				return this;
 			},
 
-			veryTop : function (item) {
+			above : function (item) {
 				container = setContainer(item);
 				containerTop = fixedTop - container.outerHeight();
 				container.css('top', containerTop);
@@ -62,7 +62,7 @@ define(['jquery'], function($) {
 				return this;
 			},
 
-			veryBottom : function (item) {
+			below : function (item) {
 				container = setContainer(item);
 				containerTop = fixedTop + fixedElement.outerHeight()
 				container.css('top', containerTop);
