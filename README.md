@@ -6,3 +6,9 @@ In an effort to provide simple patterns Atlas provides a set of small components
 
 <a data-trigger="dropdown" aria-owns="container">Trigger</a>
 <div id="container">Container</a>
+
+If you are interested in running the system locally just to play around or develop your own plugins the easiest thing for you to do is check out the repository, go into the base directory (that's the one where the Makefile is) and type:
+
+make debug
+
+This should start a simple web server on your local machine that you should be able to access via http://localhost:8000/

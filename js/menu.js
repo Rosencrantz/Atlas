@@ -86,7 +86,8 @@ define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mix
     register('menu', Menu);
     
     $(function () {
-        $('[' + settings.pluginAttribute + '="menu"]').each(function () {
+        $('[data-' + settings.pluginAttribute + '="menu"]').each(function () {
+
             var that = $(this),
                 nav = navigation(that);
 

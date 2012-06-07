@@ -25,6 +25,10 @@ define(['jquery'], function($) {
 				return this;
 			},
 
+			absoluteTop : function (item) {
+
+			},
+
 			bottom : function (item) {
 				container = setContainer(item);
 				containerTop = fixedTop + fixedElement.outerHeight()
@@ -32,6 +36,10 @@ define(['jquery'], function($) {
 				return this;
 			},
 
+			absoluteBottom : function (item) {
+
+			},
+			
 			left : function (item) {
 				container = setContainer(item);
 				containerLeft =  fixedLeft;
