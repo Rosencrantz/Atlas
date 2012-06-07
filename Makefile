@@ -26,7 +26,4 @@ watch:
 	watchr -e "watch('less/.*\.less') { system('make $(appName)') }"
 
 run: $(appName)
-	cd build/docs; python -m SimpleHTTPServer $(port)
-
-debug:
 	python -m SimpleHTTPServer $(port)

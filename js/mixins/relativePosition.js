@@ -1,3 +1,30 @@
+/*
+ * === relativePosition (internal use only) ===
+ *
+ * The relativePosition object contains a number of convienence methods for positioning one element 
+ * relative to another. This is especially useful for plugins such as dropdown or dialog where there 
+ * are usually strong associations between the position of the trigger and its container
+ *
+ * Positioning can be chained if you need to align an element to the bottom left of top right of a container:
+ *
+ * positioning.top().left();
+ * positioning.bottom().right();
+ *
+ * === Javascript ===
+ * 
+ * var positioning = relative(element, [element]);
+ * 
+ * positioning.top(element);
+ * positioning.veryTop(element);
+ * positioning.bottom(element);
+ * positioning.veryBottom(element);
+ * positioning.left(element);
+ * positioning.farLeft(element);
+ * positioning.right(element);
+ * positioning.farRight(element);
+ * positioning.nudge(element, {'top' : val, 'left' : val});
+ *
+ */
 define(['jquery'], function($) {
 	var fixedElement, container, fixedLeft, fixedTop, containerLeft, containerTop;
 
@@ -30,7 +57,7 @@ define(['jquery'], function($) {
 
 			bottom : function (item) {
 				container = setContainer(item);
-				containerTop = fixedTop + (fixedElement.outerHeight() - container.outerHeight());
+				containerTop = fixedTop + fixedElement.outerHeight() - container.outerHeight();
 				container.css('top', containerTop);
 				return this;
 			},
@@ -49,7 +76,7 @@ define(['jquery'], function($) {
 				return this;
 			},
 
-			farLeft : function () {
+			farLeft : function (item) {
 				container = setContainer(item);
 				containerLeft =  fixedLeft - container.outerWidth();
 				container.css('left', containerLeft);

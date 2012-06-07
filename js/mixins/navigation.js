@@ -1,38 +1,10 @@
-define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle'], function ($, eve, settings, control) {
+define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatcher'], function ($, eve, settings, control, dispatch) {
 
 	function navigationMixin(container) {
 		var container = $(container),
 			pluginId = container.data(settings.pluginAttribute),
 			children = container.children(),
 			activeClass = settings.activeClass;
-
-		function dispatch(preEvent, postEvent, element) {   
-        	eve(preEvent, element);
-
-        	setTimeout(function () {
-        		eve(postEvent, element);
-        	}, 0);
-		}
-
-        function activate(element) {
-            var preEvent = [settings.appName, 'activate', pluginId, 'item'].join('.'),
-            	postEvent = [settings.appName, 'activated', pluginId, 'item'].join('.');
-
-            children.filter(':not.' + activeClass).each(function () {
-            	control.deactivate(this);
-            });
-
-            dispatch(preEvent, postEvent, element);
-        };
-
-		function deactivate(element) {
-            var preEvent = [settings.appName, 'deactivate', pluginId, 'item'].join('.'),
-            	postEvent = [settings.appName, 'deactivated', pluginId, 'item'].join('.');
-	
-            element.each(function () {
-            	dispatch(preEvent, postEvent, $(this));
-            });            	
-        }
 
 		function getActiveIndex(children) {
 			for(var i=0, ii=children.length; i < ii; i++) {

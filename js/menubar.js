@@ -1,5 +1,34 @@
-define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMixin','mixins/registerPluginMixin'], function ($, eve, settings, navigation, keycode, registerPlugin) {
-    var trigger = '[data-trigger="menubar"]';
+/*
+ * === Menubar ===
+ *
+ * The menu is a small addition that provides horizontal navigation via the left and right arrow keys.
+ *
+ * === Markup ===
+ * 
+ * <div data-trigger="menu">
+ *     <a href="">Item 1</a>
+ *     <a href="">Item 2</a>
+ * </div>
+ *
+ * <ul data-trigger="menu">
+ *     <li><a href="">Item 1</a></li>
+ *     <li><a href="">Item 2</a></li>
+ * </ul>
+ * 
+ * === Javascript ===
+ *
+ * TBC
+ *
+ * === Events ===
+ * 
+ * appName.activate.menu -> raised before an item in the menu is made active
+ * appName.activated.menu -> raised after an item in the menu is made active
+ * appName.deactivate.menu -> raised before an item in the menu is made deactive
+ * appName.deactivated.menu -> raised after an item in the menu is made deactive
+ *
+ */
+define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mixins/register'], function ($, eve, settings, navigation, keycode, register) {
+    var trigger = '[' + settings.pluginAttribute + '="menubar"]';
 
     var Menubar = function (element) {
         var element = $(element),
@@ -7,6 +36,7 @@ define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMi
 
         element.data('nav', nav);
         element.on('mouseover', this.keyboardNavigation);
+        element.on('keydown keypress', function(event) { event.preventDefault(); });
         element.on('keyup', this.mouseNavigation);
     };
 
@@ -14,14 +44,20 @@ define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMi
     function keyboardNavigation (event) { 
         var key = event.keyCode,
             shiftKey = event.shiftKey,
-            nav = $(this).data('nav');
+            nav = $(this).data('nav'),
+            previousMenu = $('[aria-flowto="' + nav.container().attr('id') + '"]').data('nav'),
+            nextMenu = $('#' + nav.container().attr('aria-flowto')).data('nav');
 
         event.preventDefault();
 
         if(key && (key == keycode.RIGHT || (!shiftKey && key == keycode.TAB))) {
             if(nav.activeIndex() == nav.length()-1) {
                 nav.clear();
-                $('#' + nav.container().attr('aria-flowto')).data('nav').first();
+                if(nextMenu) {
+                    nextMenu.first();
+                } else {
+                    nav.move(nav.length()-1);
+                }
             } else {
                 nav.next();
             }
@@ -31,7 +67,11 @@ define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMi
             if(nav.activeIndex() > 0) {
                 nav.previous();
             } else {
-               $('[aria-flowto="' + nav.container().attr('id') + '"]').data('nav').last(); 
+                if(previousMenu) {
+                    previousMenu.last();
+                } else {
+                    nav.move(0);
+                } 
             }
         }
         
@@ -43,14 +83,16 @@ define(['jquery', 'eve', 'settings', 'mixins/navigationMixin', 'mixins/keycodeMi
         event.type == "mouseenter" && nav.move(index);
     }
 
-    registerPlugin('menubar', Menu);
+    register('menubar', Menubar);
     
     $(function () {
-        $('[data-trigger="menubar"]').each(function () {
+        $('[data-' + settings.pluginAttribute + '="menubar"]').each(function () {
+
             var that = $(this),
                 nav = navigation(that);
 
             that.data('nav', nav);
+            //that.on('keydown keypress', function(event) { event.preventDefault(); });
             that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
             that.on('mouseleave', function () { $(this).data('nav').clear() });
 

@@ -1,4 +1,4 @@
-require(['../mixins/relativePositionMixin'], function (placement) {
+require(['mixins/relativePosition'], function (placement) {
 	module("relative position tests", {
 		setup : function () {
 			$('body').append('<div id="container">Hello world</div>');
@@ -21,50 +21,89 @@ require(['../mixins/relativePositionMixin'], function (placement) {
 		ok(typeof myPlacement == "object");
 	});
 
-	test("Placement.left positions the container to the left of the fixedElement", function () {
+	test("Placement.left Aligns the left of the trigger with the left of the container", function () {
 		var myPlacement = placement($('#qunit-fixture'));
 		myPlacement.left($('#container'));
+		equal($('#qunit-fixture').offset().left, $('#container').offset().left);
+	});	
+
+	test("Placement.farLeft Aligns the left of the trigger with the right of the container", function () {
+		var myPlacement = placement($('#qunit-fixture'));
+		myPlacement.farLeft($('#container'));
 		equal($('#qunit-fixture').offset().left, $('#container').offset().left + $('#container').outerWidth());
 	});	
 
-	test("Placement.right positions the container to the right of the fixedElement", function () {
+	test("Placement.right Aligns the right of the trigger with the right of the container", function () {
 		var myPlacement = placement($('#qunit-fixture'));
 		myPlacement.right($('#container'));
 		equal($('#qunit-fixture').offset().left + $('#qunit-fixture').outerWidth(), $('#container').offset().left + $('#container').outerWidth());
 	});	
 
-	test("Placement.top positions the container above the fixedElement", function () {
+	test("Placement.farRight Aligns the right of the trigger with the left of the container", function () {
+		var myPlacement = placement($('#qunit-fixture'));
+		myPlacement.farRight($('#container'));
+		equal($('#qunit-fixture').offset().left + $('#qunit-fixture').outerWidth(), $('#container').offset().left);
+	});	
+
+	test("Placement.top Aligns the top of the trigger with the top of the container", function () {
 		var myPlacement = placement($('#qunit-fixture'));
 		myPlacement.top($('#container'));
+		equal($('#qunit-fixture').offset().top, $('#container').offset().top);
+	});	
+
+	test("Placement.veryTop Aligns the top of the trigger with the bottom of the container", function () {
+		var myPlacement = placement($('#qunit-fixture'));
+		myPlacement.veryTop($('#container'));
 		equal($('#qunit-fixture').offset().top, $('#container').offset().top + $('#container').outerHeight());
 	});	
 
-	test("Placement.bottom positions the container below the fixedElement", function () {
+	test("Placement.bottom Aligns the bottom of the trigger with the bottom of the container", function () {
 		var myPlacement = placement($('#qunit-fixture'));
 		myPlacement.bottom($('#container'));
+		equal($('#qunit-fixture').offset().top + $('#qunit-fixture').outerHeight() - $('#container').outerHeight(), $('#container').offset().top);
+	});	
+
+	test("Placement.veryBottom Aligns the bottom of the trigger with the top of the container", function () {
+		var myPlacement = placement($('#qunit-fixture'));
+		myPlacement.veryBottom($('#container'));
 		equal($('#qunit-fixture').offset().top + $('#qunit-fixture').outerHeight(), $('#container').offset().top);
 	});	
 
-	test("Placement.middle positions a div halfway down the fixedElement", function () {
+	test("Placement.middle Aligns the middle (vertical center) of the trigger with the middle of the container", function () {
 		var myPlacement = placement($('#qunit-fixture'));
 		myPlacement.middle($('#container'));
 		equal($('#qunit-fixture').offset().top + Math.floor(($('#qunit-fixture').outerHeight() - $('#container').outerHeight()) / 2), $('#container').offset().top);
 	});	
 
-	test("Placement.center positions a div halfway along the width of the fixedElement", function () {
+	test("Placement.center Aligns the center (horizontal center) of the trigger with the center of the container", function () {
 		var myPlacement = placement($('#qunit-fixture'));
 		myPlacement.center($('#container'));
 		equal($('#qunit-fixture').offset().left + Math.floor(($('#qunit-fixture').outerWidth() - $('#container').outerWidth()) / 2), $('#container').offset().left);
 	});	
 
-	test("Placement.nudge moves a div by the specified top / left values", function () {
+	test("Placement.nudge Shifts the position of the container by the specified number of pixels along the x axis", function () {
 		var myPlacement = placement($('#qunit-fixture')),
 			preNudgePos;
 
 		myPlacement.left($('#container'));
-		preNudgePos = $('#container').offset().left;		
-		myPlacement.nudge($('#container'), {'left' : 10, 'top' : 0});
+		preNudgePos = $('#container').offset().left;
+		equal(preNudgePos, $('#qunit-fixture').offset().left);
 
-		equal(preNudgePos + 10, $('#container').offset().left - $('#container').outerWidth());
+		myPlacement.nudge($('#container'), {'left' : 10});
+
+		equal($('#container').offset().left, $('#qunit-fixture').offset().left + 10);
+	});	
+
+	test("Placement.nudge Shifts the position of the container by the specified number of pixels along the y axis", function () {
+		var myPlacement = placement($('#qunit-fixture')),
+			preNudgePos;
+
+		myPlacement.top($('#container'));
+		preNudgePos = $('#container').offset().top;
+		equal(preNudgePos, $('#qunit-fixture').offset().top);
+
+		myPlacement.nudge($('#container'), {'top' : 10});
+
+		equal($('#container').offset().top, $('#qunit-fixture').offset().top + 10);
 	});	
 });
