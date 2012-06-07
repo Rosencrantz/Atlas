@@ -1,73 +1,72 @@
 define(['jquery', 'eve', 'settings',
     'eventHandlers/controlLifecycle', 
-    'mixins/panelMixin', 
-    'mixins/relativePositionMixin', 
-    'mixins/registerPluginMixin'], 
-    function ($, eve, settings, control, panel, positioning, registerPlugin) {
+    'mixins/dispatcher', 
+    'mixins/relativePosition', 
+    'mixins/register'], 
+    function ($, eve, settings, control, dispatcher, positioning, register) {
         var trigger = '[data-' + settings.pluginAttribute + '="dialog"]';
 
-        var Dropdown = function (element) {
-            $(element).on('click.dialog', trigger, this.toggle);
+        var Dialog = function (element) {
+            $(element).on('click', trigger, this.toggle);
         };
 
-         Dropdown.prototype = {
-            toggle : function (e) {
-                var that = $(this),
-                    container = $('#' + that.attr(settings.panelAttribute)),
-                    isHidden = control.isHidden(container);
-
-                if(isHidden) {                
-                    open.call(this, e);
-                } else {
-                    close.call(this, e);
-                }
-
-                return !isHidden;
+        Dialog.prototype = {
+            toggle : function () {
+                toggle.call(this)
             },
             
-            open : function (e) {
-                open.call(this, e);
+            open : function () {
+                open.call(this);
+                
             },
 
-            close : function (e) {
-                close.call(this, e);
+            close : function () {
+                close.call(this);
             }
         };
 
-        function open(e) {
-            var element = $(this),
-                panel = element.data('panel');
-            
-            panel.open();
+        function open() {
+            dispatcher.dispatch.call(this, 'show');
         }
 
-        function close(e) {
+        function close() {
             $(trigger).each(function () {
-                var that = $(this),
-                    panel = that.data('panel');
-
-                panel.close();   
+                control.hide('#' + $(this).attr(settings.panelAttribute));
             });
+
             return false;
         }
 
-        function position(e) {
-            var container = eve.arguments[1],
-                trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
-                panel = trigger.data('panel'),
-                position = positioning(trigger);
-                position.center().middle();
+        function toggle() {
+            var that = $(this),
+                container = $('#' + that.attr(settings.panelAttribute)),
+                isHidden = control.isHidden(container);
+
+            close.call(this);
+            isHidden && open.call(this);
+
+            return !isHidden;
         }
 
-        registerPlugin('dropdown', Dropdown);
+        function position() {
+            var container = eve.arguments[1],
+                trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
+                align = (trigger.data('valign') || 'middle'),
+                valign = (trigger.data('align') || 'center'),
+                pos = positioning($('body'), container);
+
+                pos[align]();
+                pos[valign]();
+        }
+
+        register('dialog', Dialog);
 
         $(function () {
-            $('html').on('click.dropdown', close);
-            $('body').on('click.dropdown', trigger, Dropdown.prototype.toggle);
+            $('html').on('click', close);
+            $('body').on('click', trigger, toggle);
 
             eve.on(settings.appName + '.show.dialog', position);
-
         });
 
-        return Dropdown;
+        return Dialog;
 });

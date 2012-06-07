@@ -4,13 +4,13 @@ define(['jquery', 'eve', 'settings',
     'mixins/relativePosition', 
     'mixins/register'], 
     function ($, eve, settings, control, dispatcher, positioning, register) {
-        var trigger = '[data-' + settings.pluginAttribute + '="popover"]';
+        var trigger = '[data-' + settings.pluginAttribute + '="helptip"]';
 
-        var Popover = function (element) {
+        var Helptip = function (element) {
             $(element).on('click', trigger, this.toggle);
         };
 
-        Popover.prototype = {
+        Helptip.prototype = {
             toggle : function () {
                 toggle.call(this)
             },
@@ -51,22 +51,22 @@ define(['jquery', 'eve', 'settings',
         function position() {
             var container = eve.arguments[1],
                 trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
-                align = (trigger.data('valign') || 'veryTop'),
-                valign = (trigger.data('align') || 'center'),
+                align = (trigger.data('valign') || 'middle'),
+                valign = (trigger.data('align') || 'farRight'),
                 pos = positioning(trigger);
 
                 pos[align]();
                 pos[valign]();
         }
 
-        register('popover', Popover);
+        register('helptip', Helptip);
 
         $(function () {
-            $('body').on('mouseleave', trigger, close);
-            $('body').on('mouseenter', trigger, open);
+            $('html').on('click', close);
+            $('body').on('click', trigger, toggle);
 
-            eve.on(settings.appName + '.show.popover', position);
+            eve.on(settings.appName + '.show.helptip', position);
         });
 
-        return Popover;
+        return Helptip;
 });

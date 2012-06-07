@@ -1,7 +1,3 @@
-/*!
- * Placement
- * places one element in relation to another
- */
 define(['jquery'], function($) {
 	var fixedElement, container, fixedLeft, fixedTop, containerLeft, containerTop;
 
@@ -20,24 +16,30 @@ define(['jquery'], function($) {
 		return {
 			top : function (item) {
 				container = setContainer(item);
+				containerTop = fixedTop;
+				container.css('top', containerTop);
+				return this;
+			},
+
+			veryTop : function (item) {
+				container = setContainer(item);
 				containerTop = fixedTop - container.outerHeight();
 				container.css('top', containerTop);
 				return this;
 			},
 
-			absoluteTop : function (item) {
-
-			},
-
 			bottom : function (item) {
 				container = setContainer(item);
-				containerTop = fixedTop + fixedElement.outerHeight()
+				containerTop = fixedTop + (fixedElement.outerHeight() - container.outerHeight());
 				container.css('top', containerTop);
 				return this;
 			},
 
-			absoluteBottom : function (item) {
-
+			veryBottom : function (item) {
+				container = setContainer(item);
+				containerTop = fixedTop + fixedElement.outerHeight()
+				container.css('top', containerTop);
+				return this;
 			},
 			
 			left : function (item) {
@@ -61,7 +63,7 @@ define(['jquery'], function($) {
 				return this;
 			},
 
-			farRight : function () {
+			farRight : function (item) {
 				container = setContainer(item);
 				containerLeft = fixedLeft + fixedElement.outerWidth();
 				container.css('left', containerLeft);
