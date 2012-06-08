@@ -43,7 +43,7 @@ define(['jquery', 'eve', 'settings',
             close.call(this);
             isHidden && open.call(this);
 
-            return !isHidden;
+            return false;
         }
 
         function position() {
@@ -60,7 +60,6 @@ define(['jquery', 'eve', 'settings',
         register('dialog', Dialog);
 
         $(function () {
-            $('html').on('click', close);
             $('body').on('click', trigger, toggle);
 
             eve.on(settings.appName + '.show.dialog', position);

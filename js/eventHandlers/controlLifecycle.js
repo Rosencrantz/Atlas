@@ -114,12 +114,12 @@ define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 
 			focus : function (element) {
 				if(!isHidden(element) && !isDisabled(element)) {
-					$($('a,input,select,textarea,button', element)[0]).focus();
+					$('a,input,select,textarea,button', element).eq(0).focus();
 				}
 			},
 
 			blur : function (element) {
-				$($('a,input,select,textarea,button', element)[0]).blur();
+				$('a,input,select,textarea,button', element).eq(0).blur();
 			},
 			
 			isHidden : function (element) {
@@ -141,15 +141,15 @@ define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 	}();
 
 	$(document).ready(function () {
-		eve.on(settings.appName + '.show.*.panel', function () { controlLifecycle.show(eve.arguments[1]);});
-		eve.on(settings.appName + '.hide.*.panel', function () { controlLifecycle.hide(eve.arguments[1]);});
-		eve.on(settings.appName + '.invisible.*.item', function () { controlLifecycle.invisible(eve.arguments[1]);});
-		eve.on(settings.appName + '.activate.*.item', function () { controlLifecycle.activate(eve.arguments[1]);});
-		eve.on(settings.appName + '.activated.*.item', function () { controlLifecycle.focus(eve.arguments[1]);})
-		eve.on(settings.appName + '.deactivate.*.item', function () { controlLifecycle.deactivate(eve.arguments[1]);});
-		eve.on(settings.appName + '.deactivated.*.item', function () { controlLifecycle.blur(eve.arguments[1]);});
-		eve.on(settings.appName + '.disable.*.item', function () { controlLifecycle.disable(eve.arguments[1]);});
-		eve.on(settings.appName + '.enable.*.item', function () { controlLifecycle.enable(eve.arguments[1]);});
+		eve.on(settings.appName + '.show.*.panel', function () { controlLifecycle.show(this);});
+		eve.on(settings.appName + '.hide.*.panel', function () { controlLifecycle.hide(this);});
+		eve.on(settings.appName + '.invisible.*.item', function () { controlLifecycle.invisible(this);});
+		eve.on(settings.appName + '.activate.*.item', function () { controlLifecycle.activate(this);});
+		eve.on(settings.appName + '.activated.*.item', function () { controlLifecycle.focus(this);})
+		eve.on(settings.appName + '.deactivate.*.item', function () { controlLifecycle.deactivate(this);});
+		eve.on(settings.appName + '.deactivated.*.item', function () { controlLifecycle.blur(this);});
+		eve.on(settings.appName + '.disable.*.item', function () { controlLifecycle.disable(this);});
+		eve.on(settings.appName + '.enable.*.item', function () { controlLifecycle.enable(this);});
 	});
 
 	return controlLifecycle;

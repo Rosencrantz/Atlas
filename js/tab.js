@@ -40,7 +40,7 @@ define(['jquery', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatch
 
      Tab.prototype = {        
         open : function () {
-            open.call(this);
+            return open.call(this);
         }
     };
 
@@ -49,6 +49,8 @@ define(['jquery', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatch
             close.call($(this).parents(trigger));
             dispatcher.dispatch.call(this, 'show');
         }
+
+        return false;
     }
 
     function close() {
@@ -60,7 +62,7 @@ define(['jquery', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatch
     register.call(this, 'tab', Tab);
 
     $(function () {
-        $('body').on('click', trigger, function(e) { Tab.prototype.open.call(e.target); });
+        $('body').on('click', trigger, function(e) { return Tab.prototype.open.call(e.target); });
     });
 
     return Tab;
