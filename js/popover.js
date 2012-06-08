@@ -1,3 +1,28 @@
+/*
+ * === Popover ===
+ *
+ * === Markup ===
+ * 
+ * <a data-trigger="popover" aria-owns="mypopover">Trigger</a>
+ * <div id="mypopover">Container</div>
+ *
+ * === Javascript ===
+ * 
+ * var selector = $('#sometrigger')
+ * selector.popover();
+ *
+ * selector.popover('open');
+ * selector.popover('close');
+ * selector.popover('toggle');
+ *
+ * === Events ===
+ * 
+ * appName.show.popover -> raised before the panel is displayed to the user
+ * appName.shown.popover -> raised after the panel is displayed to the user
+ * appName.hide.popover -> raised before the panel is hidden from the user 
+ * appName.hidden.popover -> raised after the panel is hidden from the user
+ *
+ */
 define(['jquery', 'eve', 'settings',
     'eventHandlers/controlLifecycle', 
     'mixins/dispatcher', 

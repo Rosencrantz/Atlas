@@ -1,3 +1,28 @@
+/*
+ * === Helptip ===
+ *
+ * === Markup ===
+ * 
+ * <a data-trigger="helptip" aria-owns="myhelptip">Trigger</a>
+ * <div id="myhelptip">Container</div>
+ *
+ * === Javascript ===
+ * 
+ * var selector = $('#somehelptip')
+ * selector.helptip();
+ *
+ * selector.helptip('open');
+ * selector.helptip('close');
+ * selector.helptip('toggle');
+ *
+ * === Events ===
+ * 
+ * appName.show.helptip -> raised before the panel is displayed to the user
+ * appName.shown.helptip -> raised after the panel is displayed to the user
+ * appName.hide.helptip -> raised before the panel is hidden from the user 
+ * appName.hidden.helptip -> raised after the panel is hidden from the user
+ *
+ */
 define(['jquery', 'eve', 'settings',
     'eventHandlers/controlLifecycle', 
     'mixins/dispatcher', 

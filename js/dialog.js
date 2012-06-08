@@ -1,3 +1,30 @@
+/*
+ * === Dialog ===
+ *
+ * === Markup ===
+ * 
+ * <a data-trigger="dialog" aria-owns="mydialog">Trigger</a>
+ * <div id="mydialog">
+ *     <a data-trigger="dialog" aria-owns="mydialog">Close trigger</a>
+ * </div>
+ *
+ * === Javascript ===
+ * 
+ * var selector = $('#sometrigger')
+ * selector.dialog();
+ *
+ * selector.dialog('open');
+ * selector.dialog('close');
+ * selector.dialog('toggle');
+ *
+ * === Events ===
+ * 
+ * appName.show.dropdown -> raised before the dialog is displayed to the user
+ * appName.shown.dropdown -> raised after the dialog is displayed to the user
+ * appName.hide.dropdown -> raised before the dialog is hidden from the user 
+ * appName.hidden.dropdown -> raised after the dialog is hidden from the user
+ *
+ */
 define(['jquery', 'eve', 'settings',
     'eventHandlers/controlLifecycle', 
     'mixins/dispatcher', 
