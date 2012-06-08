@@ -6,12 +6,34 @@ In an effort to provide simple patterns Atlas provides a set of small components
 
 ## Getting started
 
-The best this to do if you want to understand Atlas is to fork the respository and start hacking around with it. If you are interested in running the system locally fork it and then open a terminal window in the root of the project. From there type: 
+### The very quick way to get started
+
+Once you've checked out the repository run the following from the application root:
+
+> ./run.sh
+
+### The quick way to get started.
+
+If you have make (which comes with the Apple developer tools) you should be able to run the following:
+
+> make debug
+
+### If you want to compile Atlas and run the development server
+
+For those interested in minifying/compiling Atlas, you'll need the following:
+
+make (part of the apple developer tools)
+Node.js (http://nodejs.org/#download)
+npm (http://npmjs.org/)
+lessc (http://lesscss.org/)
+uglify.js (https://github.com/mishoo/UglifyJS)
+
+Once you have all these installed run the following command from the root directory:
 
 > make run
 
-This will start a simple http server that you can then use to develop, browse documentation, run tests and have fun!
+### If you just want to compile Atlas.
 
-##Requirements
+You'll still need all of the above installed, once you do, type the following from the root directory:
 
-You'll need a bunch of stuff. What would be really useful would be some kind of simple install script...
+> make atlas
