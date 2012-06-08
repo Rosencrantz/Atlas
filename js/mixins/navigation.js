@@ -1,6 +1,35 @@
+/*
+ * === Navigation (Internal use only) ===
+ *
+ * The navigation object provides a number of useful utility methods for moving through
+ * a containers children.
+ *
+ * === Javascript ===
+ * 
+ * var nav = navigation(container);
+ * 
+ * nav.first(); 	<- Raises an activate event on the first child of the container
+ * nav.last(); 		<- Raises an activate event on the last child of the container
+ * nav.next(); 		<- Raises an activate event on the next sibling of the active child
+ * nav.previous(); 	<- Raises an activate event on the previous sibling on the currently active child
+ * nav.clear(); 	<- Raise a deactivate event on each active child of the container
+ * nav.move(index);	<- Raise an activate event on the specified child
+ * nav.container(); <- Returns the container
+ * nav.length();	<- Returns the number of children in the container
+ * nav.activeIndex();	<- Returns the index of the currently active child
+ *
+ *
+ * === Events ===
+ * 
+ * appName.activate.panel -> raised before the panel is displayed to the user
+ * appName.activated.panel -> raised after the panel is displayed to the user
+ * appName.deactivate.panel -> raised before the panel is hidden from the user
+ * appName.deactivated.panel -> raised after the panel ishidden from the user
+ *
+ */
 define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle'], function ($, eve, settings, control) {
 
-	function navigationMixin(container) {
+	function navigation(container) {
 		var container = $(container),
 			pluginId = container.data(settings.pluginAttribute),
 			children = container.children(),
@@ -94,5 +123,5 @@ define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle'], function
 		}
 	}
 
-	return navigationMixin;
+	return navigation;
 });

@@ -1,3 +1,13 @@
+/* 
+ * === Keycodes (internal use only) ===
+ *
+ * Very simple utility method that applies names to some of the more commonly used keys
+ *
+ * === Javascript ===
+ *
+ * keycodes.COMMA
+ *
+ */
 define(['jquery'], function ($) {
       return { 
             BACKSPACE: 8,

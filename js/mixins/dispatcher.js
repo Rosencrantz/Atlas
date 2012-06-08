@@ -1,5 +1,22 @@
 /* 
  * === Dispatcher (internal use only) ===
+ *
+ * Simple object that executes events against the scoped container. There are a finite number of events that can
+ * be called. These are:
+ * 
+ * show             <- Generates show/shown events
+ * hide             <- Generates hide/hidden events 
+ * activate         <- Generates activate/activated events
+ * deactivate       <- Generates deactivate/deactivated events
+ * enable           <- Generates enable/enabled events
+ * disable          <- Generates disable/disabled events
+ *
+ * === Javascript ===
+ * This function should be called within the scope of the the trigger meaning that when executed, this should
+ * evaluate to the trigger.
+ *
+ * dispatcher.dispatch(event)
+ *
  */
 define(['jquery', 'eve', 'settings', 'eventHandlers/controlLifecycle'], function ($, eve, settings, control) {
     return {
