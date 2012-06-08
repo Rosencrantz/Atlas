@@ -3,9 +3,9 @@ define([], function () {
 		appName : 'atlas',
 		pluginAttribute : 'trigger',
 		panelAttribute : 'aria-owns',
-		hiddenClass : 'aui-hide',
-		invisibleClass : 'aui-invisible',
-		activeClass : 'aui-active',
-		disabledClass : 'aui-disabled'
+		hiddenClass : 'atlas-hide',
+		invisibleClass : 'atlas-invisible',
+		activeClass : 'atlas-active',
+		disabledClass : 'atlas-disabled'
 	}
 });
