@@ -72,11 +72,11 @@ define(['jquery', 'eve', 'settings',
             close.call(this);
             isHidden && open.call(this);
 
-            return !isHidden;
+            return false;
         }
 
         function position() {
-            var container = eve.arguments[1],
+            var container = $(this),
                 trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
                 align = (trigger.data('valign') || 'below'),
                 valign = (trigger.data('align') || 'left'),
@@ -89,7 +89,7 @@ define(['jquery', 'eve', 'settings',
         register('dropdown', Dropdown);
 
         $(function () {
-            $('html').on('click', close);
+            $(document).on('click', function () { close() });
             $('body').on('click', trigger, toggle);
 
             eve.on(settings.appName + '.show.dropdown', position);

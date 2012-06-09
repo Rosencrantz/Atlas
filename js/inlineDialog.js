@@ -1,26 +1,28 @@
 /*
- * === Helptip ===
+ * === Dialog ===
  *
  * === Markup ===
  * 
- * <a data-trigger="helptip" aria-owns="myhelptip">Trigger</a>
- * <div id="myhelptip">Container</div>
+ * <a data-trigger="dialog" aria-owns="mydialog">Trigger</a>
+ * <div id="mydialog">
+ *     <a data-trigger="dialog" aria-owns="mydialog">Close trigger</a>
+ * </div>
  *
  * === Javascript ===
  * 
- * var selector = $('#somehelptip')
- * selector.helptip();
+ * var selector = $('#sometrigger')
+ * selector.dialog();
  *
- * selector.helptip('open');
- * selector.helptip('close');
- * selector.helptip('toggle');
+ * selector.dialog('open');
+ * selector.dialog('close');
+ * selector.dialog('toggle');
  *
  * === Events ===
  * 
- * appName.show.helptip -> raised before the panel is displayed to the user
- * appName.shown.helptip -> raised after the panel is displayed to the user
- * appName.hide.helptip -> raised before the panel is hidden from the user 
- * appName.hidden.helptip -> raised after the panel is hidden from the user
+ * appName.show.dropdown -> raised before the dialog is displayed to the user
+ * appName.shown.dropdown -> raised after the dialog is displayed to the user
+ * appName.hide.dropdown -> raised before the dialog is hidden from the user 
+ * appName.hidden.dropdown -> raised after the dialog is hidden from the user
  *
  */
 define(['jquery', 'eve', 'settings',
@@ -29,13 +31,13 @@ define(['jquery', 'eve', 'settings',
     'mixins/relativePosition', 
     'mixins/register'], 
     function ($, eve, settings, control, dispatcher, positioning, register) {
-        var trigger = '[data-' + settings.pluginAttribute + '="helptip"]';
+        var trigger = '[data-' + settings.pluginAttribute + '="inlinedialog"]';
 
-        var Helptip = function (element) {
+        var InlineDialog = function (element) {
             $(element).on('click', trigger, this.toggle);
         };
 
-        Helptip.prototype = {
+        InlineDialog.prototype = {
             toggle : function () {
                 toggle.call(this)
             },
@@ -72,24 +74,23 @@ define(['jquery', 'eve', 'settings',
         }
 
         function position() {
-            var container = eve.arguments[1],
+            var container = $(this),
                 trigger = $('[' + settings.panelAttribute + '="' + container.attr('id') + '"]'),
                 align = (trigger.data('valign') || 'middle'),
                 valign = (trigger.data('align') || 'farRight'),
-                pos = positioning(trigger);
+                pos = positioning(trigger, container);
 
                 pos[align]();
                 pos[valign]();
         }
 
-        register('helptip', Helptip);
+        register('inlinedialog', InlineDialog);
 
         $(function () {
-            $('body').on('click', close);
             $('body').on('click', trigger, toggle);
 
-            eve.on(settings.appName + '.show.helptip', position);
+            eve.on(settings.appName + '.show.inlinedialog', position);
         });
 
-        return Helptip;
+        return InlineDialog;
 });

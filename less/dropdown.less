@@ -1,7 +1,69 @@
 .dropdown {
-	padding: 5px;
 	border-radius: 0px 0px 3px 3px;
 	border: 1px  solid #999;
 	box-shadow: 3px 2px 5px rgba(0,0,0,0.3);
 	background-color: #fff;
+}
+
+.triangle-border {
+	width: 200px;
+	position:relative;
+	padding:15px;
+	margin-bottom: 30px;
+	border:1px solid #999;
+	color:#999;
+	background:#fff;
+	/* css3 */
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px;
+}
+
+.triangle-border:before {
+	content:"";
+	position:absolute;
+	bottom:-14px; /* value = - border-top-width - border-bottom-width */
+	left: 105px; /* controls horizontal position */
+    border-width:14px 14px 0;
+	border-style:solid;
+    border-color:#999 transparent;
+    /* reduce the damage in FF3.0 */
+    display:block; 
+    width:0;
+}
+
+/* creates the smaller  triangle */
+.triangle-border:after {
+	content:"";
+	position:absolute;
+	bottom:-13px; /* value = - border-top-width - border-bottom-width */
+	left: 106px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+	border-width:13px 13px 0;
+	border-style:solid;
+	border-color:#fff transparent;
+    /* reduce the damage in FF3.0 */
+    display:block; 
+    width:0;
+}
+
+.pad {
+	padding: 10px;
+}
+
+.helptip, .popover {
+	margin: 5px;
+	border: 1px solid #333;
+	padding: 0 5px;
+	background-color: #fff;
+	width: 200px;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+
+.dialog {
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px solid #999;
+	width: 400px;
+	min-height: 200px;
 }

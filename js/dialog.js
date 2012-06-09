@@ -80,6 +80,7 @@ define(['jquery', 'eve', 'settings',
                 valign = (trigger.data('align') || 'center'),
                 pos = positioning($('body'), container);
 
+                debugger;
                 pos[align]();
                 pos[valign]();
         }

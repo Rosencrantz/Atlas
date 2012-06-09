@@ -7,86 +7,158 @@
     </head>
 	</head>
 	<body>
-		<h1>Dropdowns dropping down</h1>
-		<a href="" data-trigger="dropdown" aria-owns="dropdown">Dropdown</a>
-		<div id="dropdown" class="dropdown atlas-hide">The dropdown</div>
-		<a href="" data-trigger="dropdown" aria-owns="dropdown2">Dropdown two</a>
-		<div id="dropdown2" class="dropdown atlas-hide">
-			<form>
-				<input type="text"><br />
-				<input type="submit" />
-			</form>
+		<div class="navbar">
+			<div class="innernav">
+				<ul class="nav">
+					<li><a href="" data-trigger="dropdown" aria-owns="dropdown1">Simple dropdowns</a></li>
+					<li><a href="" data-trigger="dropdown" aria-owns="dropdown2">Regular dropdowns</a></li>
+					<li><a href="" data-trigger="inlinedialog" aria-owns="sticky" data-align="left" data-valign="below">Sticky dropdowns</a></li>
+					<li><a href="" data-trigger="dropdown" aria-owns="dropdown4">Hovers</a></li>
+					<li><a href="" data-trigger="dropdown" aria-owns="dropdown5">Keyboard navigation</a></li>
+				</ul>
+				<div class="pull-right">
+					<ul class="nav">
+						<li><a href="" data-trigger="dropdown" aria-owns="dropdown3" data-align="right">Alternate alignment</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
-		<a href="" data-trigger="dropdown" aria-owns="dropdown3">Dropdown with menu</a>
-		<div id="dropdown3" class="dropdown atlas-hide">
-			<ul data-trigger="menu">
-				<li><a href="http://www.google.com">Alpha</a></li>
-				<li><a href="">Beta</a></li>
-				<li><a href="">Charlie</a></li>
-				<li><a href="">Delta</a></li>
-				<li><a href="">Echo</a></li>
-			</ul>
-		</div>
-		<h1>Menus with keyboard navigation</h1>
-		<ul data-trigger="menu" aria-flowto="menu2">
-			<li><a href="">One</a></li>
-			<li><a href="">Two</a></li>
-			<li><a href="">Three</a></li>
-			<li><a href="">Four</a></li>
-			<li><a href="">Five</a></li>
-		</ul>
-		<ul id="menu2" data-trigger="menu">
-			<li><a href="">One</a></li>
-			<li><a href="">Two</a></li>
-			<li><a href="">Three</a></li>
-			<li><a href="">Four</a></li>
-			<li><a href="">Five</a></li>
-		</ul>
+		<div id="content">
+			<div id="main">
+				<h1>Tabs tabbing</h1>
+				<p>Tabs are a staple of any web application they allow associated data to sit on the screen without taking up too much space. This is a standard vertical tab, the buttons on the left change the content on the right</p>
+				<div id="tabs" data-trigger="tab">
+					<ul class="tab-menu" data-trigger="menu">
+						<li><a href="" aria-owns="panel1">Helptips</a></li>
+						<li><a href="" aria-owns="panel2">Popovers</a></li>
+						<li><a href="" aria-owns="panel3">Dialogs</a></li>
+					</ul>
+					<div class="tab-panel" id="panel1">
+						<h2>Helptips</h2>
+						<p>Helptips are those things that you click when you need help with stuff.
+							The can appear pretty much anywhere and can container pretty much anything.</p>
+						<p>By default a <a href="" data-trigger="helptip" aria-owns="helptip1">helptip</a> appears
+							like this but that can be changed...</p>
+						<p>This next <a href="" data-trigger="helptip" aria-owns="helptip2" data-align="center" data-valign="above">helptip</a> appears in a completely different place!</p>
 
-		<h1>Tabs tabbing</h1>
-		<div id="tabs" data-trigger="tab">
-			<ul data-trigger="menu">
-				<li><a href="" aria-owns="panel1">Panel1</a></li>
-				<li><a href="" aria-owns="panel2">Panel2</a></li>
-				<li><a href="" aria-owns="panel3">Panel3</a></li>
-				<li><a href="" aria-owns="panel4">Panel4</a></li>
-				<li><a href="" aria-owns="panel5">Panel5</a></li>
+					</div>
+					<div class="tab-panel atlas-hide" id="panel2">
+						<h2>Popovers</h2>
+						<p>Popovers are really very similar to Helptips. The biggest difference is in the way that they are displayed to the user. Whereas the Helptip relies on a click to show, the popover only requies that the use hover over the element</p>
+						<p>A basic popover might look like this <a href="" data-trigger="popover" aria-owns="popover1">Hover me</a></p>
+						<p>But you can use other elements and different positioning too</p>
+						<img src="http://freeimagesarchive.com/data/media/26/7_cat.jpg" data-trigger="popover" aria-owns="popover2" data-align="center" data-valign="middle" />
+
+					</div>
+					<div class="tab-panel atlas-hide" id="panel3">
+						<h2>Dialogs</h2>
+						<p>Dialogs are usually big panels with whole reams of functionality, but they can be as simple as a box with some information and a button to close</p>
+						<p>This is an example of a simple dialog <a href="" data-trigger="dialog" aria-owns="dialog1">Open me</a></p>
+					</div>
+				</div>
+				<p>But tabs can also be aligned above the panels, below them, to the right, in fact the tabs don't strictly need to be near the panels that they display at all! This is another common layout with tabs on top</p>
+				<div id="tabs2" data-trigger="tab">
+					<ul class="tab-menu-hz" data-trigger="menubar">
+						<li><a href="" aria-owns="panel4">Helptips</a></li>
+						<li><a href="" aria-owns="panel5">Popovers</a></li>
+						<li><a href="" aria-owns="panel6">Dialogs</a></li>
+					</ul>
+					<div class="tab-panel-hz" id="panel4">Panel 4</div>
+					<div class="tab-panel-hz atlas-hide" id="panel5">Panel 5</div>
+					<div class="tab-panel-hz atlas-hide" id="panel6">Panel 6</div>
+				</div>
+			</div>
+			<p>The end</p>
+		</div>
+		<div class="navbar">
+			<div class="innernav">
+				<ul class="nav">
+					<li><a href="">more things</a></li>
+					<li><a href="" data-trigger="dropdown" aria-owns="dropdown6" data-align="center" data-valign="above">More dropdown alignments</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="dropdown1" class="atlas-hide dropdown">
+			<p>The simplist form of dropdown probably just contains text and is aligned to the bottom left of its trigger</p>
+		</div>
+		<div id="dropdown2" class="dropdown atlas-hide">
+			<ul class="menu">
+				<li><a href="">This is</a></li>
+				<li><a href="">Probably</a></li>
+				<li><a href="">The most common kind</a></li>
+				<li><a href="">Of</a></li>
+				<li><a href="">Dropdown</a></li>
 			</ul>
-			<div id="panel1"><p>This is panel 1</p></div>
-			<div class="tab-panel atlas-hide" id="panel2"><p>This is panel 2</p></div>
-			<div class="tab-panel atlas-hide" id="panel3"><p>This is panel 3</p></div>
-			<div class="tab-panel atlas-hide" id="panel4"><p>This is panel 4</p></div>
-			<div class="tab-panel atlas-hide" id="panel5"><p>This is panel 5</p></div>
 		</div>
-		<br /><br />
-		<div id="tabs2" data-trigger="tab">
-			<ul data-trigger="menu">
-				<li><a href="" aria-owns="panelA">PanelA</a></li>
-				<li><a href="" aria-owns="panelB">PanelB</a></li>
-				<li><a href="" aria-owns="panelC">PanelC</a></li>
-				<li><a href="" aria-owns="panelD">PanelD</a></li>
-				<li><a href="" aria-owns="panelE">PanelE</a></li>
+		<div id="sticky" class="dropdown atlas-hide">
+			<div class="pad">
+				<h2>Aloha!</h2>
+				<p>But you aren't restricted to just lists inside dropdowns.</p> 
+				<p>This one is sticky, so it won't go away until you submit the form. Oh yeah, you can have forms in here too</p>
+				<form>
+					<input type="text"><br />
+					<input type="submit" />
+				</form>
+			</div>
+		</div>
+		<div id="dropdown3" class="dropdown atlas-hide">
+			<ul class="menu right">
+				<li><a href="http://www.google.com">Dropdowns</a></li>
+				<li><a href="">Can also</a></li>
+				<li><a href="">Be aligned to</a></li>
+				<li><a href="">Different</a></li>
+				<li><a href="">Edges</a></li>
 			</ul>
-			<div id="panelA"><p>This is panel A</p></div>
-			<div class="atlas-hide" id="panelB"><p>This is panel B</p></div>
-			<div class="atlas-hide" id="panelC"><p>This is panel C</p></div>
-			<div class="atlas-hide" id="panelD"><p>This is panel D</p></div>
-			<div class="atlas-hide" id="panelE"><p>This is panel E</p></div>
 		</div>
-		<h1>Help tips being helpful</h1>
-		<p>If you need <a href="" data-trigger="helptip" aria-owns="help">Help</a> just click the link</p>
-		<div id="help" class="atlas-hide">
-			<p>You don't really need help do you?</p>
+		<div id="dropdown4" class="dropdown atlas-hide">
+			<ul class="menu">
+				<li><a href="">Menus</a></li>
+				<li><a href="">Will generally</a></li>
+				<li><a href="">Have some</a></li>
+				<li><a href="">Hover</a></li>
+				<li><a href="">State</a></li>
+			</ul>
 		</div>
-		<h1>Popovers popping over</h1>
-		<p>If you need <a href="" data-trigger="popover" aria-owns="pop">tips</a> just hover the link</p>
-		<div id="pop" class="atlas-hide">
-			<p>Popovers are the bomb!</p>
+		<div id="dropdown5" class="dropdown atlas-hide">
+			<ul class="menu" data-trigger="menu" aria-flowto="secondary">
+				<li><a href="">But with a </a></li>
+				<li><a href="">Little magic</a></li>
+				<li><a href="">You can do nice things</a></li>
+				<li><a href="">With</a></li>
+				<li><a href="">Keyboard navigation</a></li>
+			</ul>
+			<ul class="menu" id="secondary" data-trigger="menu">
+				<li><a href="">You</a></li>
+				<li><a href="">Can even have</a></li>
+				<li><a href="">Multiple menus</a></li>
+				<li><a href="">With chained</a></li>
+				<li><a href="">Keyboard nav</a></li>
+			</ul>
 		</div>
-		<h1>Dialogs doing that dialog thing that dialogs do</h1>
-		<p>You should really open this dialog <a href="" data-trigger="dialog" aria-owns="dialog">DO IT!</a></p>
-		<div id="dialog" class="atlas-hide">
-			<h1>OH MY GOD, YOU OPENED THE DIALOG. WHAT WERE YOU THINKING!</h1>
+		<div id="dropdown6" class="triangle-border atlas-hide">
+			<p>And of course, dropdowns don't <em>have</em> to drop down...</p>
+			<ul class="menu">
+				<li><a href="">This is</a></li>
+				<li><a href="">probably more</a></li>
+				<li><a href="">of a</a></li>
+				<li><a href="">Dropup</a></li>
+				<li><a href="">Though</a></li>
+			</ul>
+		</div>
+		<div id="helptip1" class="atlas-hide helptip">
+			<p>The contents of a helptip can be pretty much anything you want</p>
+		</div>
+		<div id="helptip2" class="atlas-hide helptip">
+			<p>This tip is placed above and in the middle of the text it relates to, but it could appear anywhere</p>
+		</div>
+		<div id="popover1" class="atlas-hide popover">
+			<p>A simple popover</p>
+		</div>
+		<div id="popover2" class="atlas-hide popover">
+			<p>Ahhh, what a cute cat!</p>
+		</div>
+		<div id="dialog1" class="atlas-hide dialog">
+			<p>Congratulations on clicking me. Now close me by <a href="" data-trigger="dialog">Clicking here</a></p>
 		</div>
 	</body>
 </html>
