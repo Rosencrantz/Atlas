@@ -1,0 +1,247 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.atlas-hide {
+  display: none;
+}
+.pull-right {
+  float: right;
+}
+*:focus {
+  outline: 0;
+}
+#content {
+  width: 980px;
+  margin: 0 auto;
+}
+body,
+p {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: normal;
+  font-family: sans-serif;
+  color: #333;
+}
+h1 {
+  font-size: 24px;
+  line-height: 30px;
+}
+.navbar:after {
+  content: "";
+  display: table;
+  clear: both;
+  background-color: #f90;
+}
+.navbar {
+  background-color: #eee;
+  border-bottom: 1px solid #999;
+  border-top: 1px solid #999;
+  width: 100%;
+}
+.innernav {
+  width: 980px;
+  margin: 0 auto;
+}
+.nav {
+  float: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.nav li {
+  float: left;
+  display: inline-block;
+}
+.nav li a {
+  float: left;
+  padding: 10px 5px;
+  border-left: 1px solid #999;
+  display: block;
+}
+.nav li a:hover {
+  background-color: #aaa;
+}
+.nav li:last-child a {
+  border-right: 1px solid #999;
+}
+.menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.menu li {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+.menu li a {
+  display: block;
+  padding: 5px 15px;
+}
+#dropdown1 .menu li a:hover,
+#dropdown1 .menu li a:focus,
+#dropdown2 .menu li a:hover,
+#dropdown2 .menu li a:focus,
+#dropdown3 .menu li a:hover,
+#dropdown3 .menu li a:focus,
+#dropdown4 .menu li a:hover,
+#dropdown4 .menu li a:focus {
+  background-color: #666;
+}
+.atlas-active,
+#tabs li a:focus,
+.menu li a:focus {
+  background-color: #333;
+  color: #fff;
+}
+.right {
+  text-align: right;
+}
+#sticky {
+  width: 250px;
+}
+#leftnav {
+  width: 250px;
+  float: left;
+}
+#secondary {
+  margin-top: 10px;
+  border-top: 1px solid #999;
+}
+#tabs,
+#tabs2 {
+  border: 1px solid #999;
+}
+#tabs:after,
+#tabs2:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.tab-menu {
+  width: 180px;
+  border-right: 1px solid #999;
+  float: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.tab-menu li a {
+  display: block;
+  padding: 5px 0 2px 15px;
+  border-bottom: 1px solid #999;
+}
+.tab-menu li a:hover {
+  background-color: #666;
+  color: #fff;
+}
+.tab-menu li:last-child a {
+  border-bottom: 0;
+}
+.tab-menu-hz {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  border-bottom: 1px solid #999;
+}
+.tab-menu-hz li {
+  display: inline-block;
+}
+.tab-menu-hz li a {
+  display: block;
+  padding: 5px 15px;
+}
+.tab-panel-hz {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.tab-panel {
+  float: left;
+  width: 700px;
+  padding: 0 0 0 15px;
+  margin-left: -1px;
+  border-left: 1px solid #999;
+}
+.helptip {
+  border: 1px solid #333;
+  padding: 0 5px;
+  background-color: #eee;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+.dropdown {
+  border-radius: 0px 0px 3px 3px;
+  border: 1px  solid #999;
+  box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+.triangle-border {
+  width: 200px;
+  position: relative;
+  padding: 15px;
+  margin-bottom: 30px;
+  border: 1px solid #999;
+  color: #999;
+  background: #fff;
+  /* css3 */
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.triangle-border:before {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  /* value = - border-top-width - border-bottom-width */
+
+  left: 105px;
+  /* controls horizontal position */
+
+  border-width: 14px 14px 0;
+  border-style: solid;
+  border-color: #999 transparent;
+  /* reduce the damage in FF3.0 */
+
+  display: block;
+  width: 0;
+}
+/* creates the smaller  triangle */
+.triangle-border:after {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  /* value = - border-top-width - border-bottom-width */
+
+  left: 106px;
+  /* value = (:before left) + (:before border-left) - (:after border-left) */
+
+  border-width: 13px 13px 0;
+  border-style: solid;
+  border-color: #fff transparent;
+  /* reduce the damage in FF3.0 */
+
+  display: block;
+  width: 0;
+}
+.pad {
+  padding: 10px;
+}
+.helptip,
+.popover {
+  margin: 5px;
+  border: 1px solid #333;
+  padding: 0 5px;
+  background-color: #fff;
+  width: 200px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+.dialog {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #999;
+  width: 400px;
+  min-height: 200px;
+}
