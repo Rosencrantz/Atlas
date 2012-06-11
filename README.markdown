@@ -37,3 +37,18 @@ Once you have all these installed run the following command from the root direct
 You'll still need all of the above installed, once you do, type the following from the root directory:
 
 > make atlas
+
+## Configuring
+
+Atlas can be configured, to some excent anyway. The configuration options aim to make the api fit into any existing site or application where there may be conflicts with names, classes, events or plugins. All of the settings for Atlas are placed within the settigns.js file which can be found in the js/ folder.
+
+Configuration can be split into 3 parts. Attribute configuration, class configuration and plugin configuration.</p>
+
+### Attribute configuration
+By default Atlas uses the the data-trigger and aria-owns attributes to configure plugins in the markup. These can be altered by changing the pluginAttribute and panelAttribute settings.
+
+### Class configuration
+There are four classes used in Atlas; the classes are used for hidden, invisible, active and disabled items. To configure these classes you'll need to update the appropriate settings. These are: hiddenClass, invisibleClass, activeClass and disabledClass
+
+### Plugin configuration
+Each of the plugins in Atlas is a jQuery plugin, it is not unlikely that there may be some conflict between the Atlas plugins and other existing plugins. To address this issue Atlas provides a way for each plugin to be renamed. Inside the settings file there is a section for pluginIdentifiers containing a name for each plugin. Updating the right hand side of this will change the names and events for the relevent plugin
