@@ -2,9 +2,9 @@ require(['mixins/navigation'], function (navigationMixin) {
 	var menu,
 		navigation;
 
-	module("navigationMixin tests", {
+	module("Navigation tests", {
 		setup : function () {
-			$('body').append('<div><ul id="menu">' +
+			$('body').append('<div id="myMenu"><ul id="menu">' +
 				'<li><a href="#one">one</a></li>' +
 				'<li><a href="#two">two</a></li>' +
 				'<li><a href="#three">three</a></li>' +
@@ -13,11 +13,12 @@ require(['mixins/navigation'], function (navigationMixin) {
 
 			menu= $('#menu');
 			navigation = navigationMixin(menu);
-
 		},
 		
 		teardown : function () {
-			$('#menu').remove();
+			while($('#myMenu').length) {
+				$('#myMenu').remove();
+			}
 		}
 	});
 
@@ -31,40 +32,43 @@ require(['mixins/navigation'], function (navigationMixin) {
 
 	test("First will focus the first (focusable) element within the specified container", function () {
 		navigation.first();
-		equal($('#menu li.aui-active').text(), $('#menu li:first-child').text());
+		equal($('#menu li.atlas-active').text(), $('#menu li:first-child').text());
 	});
 
 	test("next will focus the next (focusable) element within the specified container", function () {
 		navigation.first().next();
-		equal($('#menu li.aui-active').text(), $('#menu li:nth-child(2) a').text());
+		equal($('#menu li.atlas-active').text(), $('#menu li:nth-child(2) a').text());
 	});
 
 	test("next cannot take you past the last (focusable) element within the specified container", function () {
 		navigation.next().next().next().next().next().next();
-		equal($('#menu li.aui-active').text(), $('#menu li:nth-child(5) a').text());
+		equal($('#menu li.atlas-active').text(), $('#menu li:nth-child(5) a').text());
 	});
 
 	test("preivous will focus the previous (focusable) element within the specified container", function () {
 		navigation.next().next().next().previous();
-		equal($('#menu li.aui-active').text(), $('#menu li:nth-child(2)').text());
+		equal($('#menu li.atlas-active').text(), $('#menu li:nth-child(2)').text());
 	});
 
 	test("preivous cannot take you past the first element within the specified container", function () {
 		navigation.next().previous().previous();
-		equal($('#menu li.aui-active').text(), $('#menu li:first-child').text());
+		equal($('#menu li.atlas-active').text(), $('#menu li:first-child').text());
 	});
 
 	test("move will move focus to the given index", function () {
 		navigation.move(4);
-		equal($('#menu li.aui-active').text(), $('#menu li:nth-child(5)').text());
+		equal($('#menu li.atlas-active').text(), $('#menu li:nth-child(5)').text());
 
 	});
 
 	test("Clear will remove focus from the container altogether", function () {
-		ok(false);
+		navigation.first();
+		navigation.clear();
+		ok(navigation.activeIndex() < 0);
 	});
 
 	test("activeIndex will return the position of the currently active item", function () {
-		ok(false);
+		navigation.next().next().next();
+		equal(navigation.activeIndex(), 2);
 	});	
 });

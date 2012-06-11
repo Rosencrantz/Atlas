@@ -35,7 +35,7 @@ define(['jquery', 'eve', 'settings',
     function ($, eve, settings, control, dispatcher, positioning, register) {
         var trigger = '[data-' + settings.pluginAttribute + '="dropdown"]';
 
-        var Dropdown = function (element) {
+        var Dropdown = function _Dropdown(element) {
             $(element).on('click', trigger, this.toggle);
         };
 

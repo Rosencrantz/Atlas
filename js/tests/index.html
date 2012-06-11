@@ -13,7 +13,7 @@
 				baseUrl : '/js/'
 			});
 			
-			require(['tests/positioningTest', 'tests/navigationTest'], function (positioningTest, visibilityHandlerTest, dropdownTest, navigationMixinTest) {
+			require(['tests/positioningTest', 'tests/controlLifecycleTest', 'tests/navigationTest', 'tests/registerTest', 'tests/dropdownTest'], function (a,b,c,d,e) { 
 				QUnit.start(); 
 			});
 		</script>

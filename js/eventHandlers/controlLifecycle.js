@@ -28,7 +28,7 @@ define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 		}
 
 		function isActive(element) {
-			return !$(element).is('.' + settings.activeClass);
+			return $(element).is('.' + settings.activeClass);
 		}
 
 		function isDisabled(element) {
@@ -75,12 +75,14 @@ define(['jquery', 'eve', 'settings'], function ($, eve, settings) {
 
 		function disable(element) {
 			$(element)
-				.addClass(settings.disabledClass);
+				.addClass(settings.disabledClass)
+				.attr('disabled', 'disabled');
 		}
 
 		function enable(element) {
 			$(element)
-				.removeClass(settings.disabledClass);
+				.removeClass(settings.disabledClass)
+				.removeAttr('disabled');
 		}
 
 		return {

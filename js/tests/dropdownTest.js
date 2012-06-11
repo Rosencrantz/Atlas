@@ -1,11 +1,16 @@
-require(['../dropdown'], function (dropdownPlugin) {
+require(['settings', 'dropdown'], function (settings, dropdownPlugin) {
 	module("Dropdown tests", {
 		setup : function () {
-			$('body').append('<a href="#" id="trigger" data-trigger="dropdown" aria-owns="container">Trigger</a><div class="aui-dropdown aui-hide" id="container">Hello world</div>');
+			$('body').append('<a href="#" id="trigger" data-trigger="dropdown" aria-owns="container">Trigger</a><div class="atlas-hide" id="container">Hello world</div>');
 		},
 		teardown : function () {
-			$('#trigger').remove();
-			$('#container').remove();
+			while($('#trigger').length) {
+				$('#trigger').remove();
+			}
+
+			while($('#container').length) {
+				$('#container').remove();
+			}
 		}
 	});
 
@@ -31,7 +36,7 @@ require(['../dropdown'], function (dropdownPlugin) {
 			start();
 		}, 0);
 
-		$('#container').removeClass('aui-hide');
+		$('#container').removeClass(settings.hiddenClass);
 		$('#trigger').dropdown('toggle');
 	});
 
