@@ -1,4 +1,4 @@
-require(['settings', 'dropdown'], function (settings, dropdownPlugin) {
+require(['settings', 'dropdown'], function (settings, dropdown) {
 	module("Dropdown tests", {
 		setup : function () {
 			$('body').append('<a href="#" id="trigger" data-trigger="dropdown" aria-owns="container">Trigger</a><div class="atlas-hide" id="container">Hello world</div>');

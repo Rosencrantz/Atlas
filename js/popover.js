@@ -29,7 +29,7 @@ define(['jquery', 'eve', 'settings',
     'mixins/relativePosition', 
     'mixins/register'], 
     function ($, eve, settings, control, dispatcher, positioning, register) {
-        var trigger = '[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.popover +'"]';
+        var trigger = '[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.popover + '"]';
 
         var Popover = function (element) {
             $(element).on('click', trigger, this.toggle);
