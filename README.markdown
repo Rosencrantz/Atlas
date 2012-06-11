@@ -38,11 +38,18 @@ You'll still need all of the above installed, once you do, type the following fr
 
 > make atlas
 
-## Configuring
+## Usage 
+Once you've got Atlas up and running you'll probably want to play around with creating your own interface (to get a feel for things). Each of the plugin files contains appropriate documentation as to how to use it. But basically using the following pattern will likely get you most of the way there, just replace plugin with the right plugin name and container with the id of the element that the plugin will act on:
 
+> <a data-trigger="plugin" aria-owns="container">Trigger</a>
+> <div id="container" class="atlas-hide">Data in here</div>
+
+See the indiviual Javascript files for more information.
+
+## Configuring
 Atlas can be configured, to some excent anyway. The configuration options aim to make the api fit into any existing site or application where there may be conflicts with names, classes, events or plugins. All of the settings for Atlas are placed within the settigns.js file which can be found in the js/ folder.
 
-Configuration can be split into 3 parts. Attribute configuration, class configuration and plugin configuration.</p>
+Configuration can be split into 3 parts. Attribute configuration, class configuration and plugin configuration.
 
 ### Attribute configuration
 By default Atlas uses the the data-trigger and aria-owns attributes to configure plugins in the markup. These can be altered by changing the pluginAttribute and panelAttribute settings.
