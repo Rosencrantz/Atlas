@@ -57,7 +57,7 @@ require(['settings', 'dropdown'], function (settings, dropdownPlugin) {
 			start();
 		}, 0)
 
-		$('#container').removeClass('aui-hide');
+		$('#container').removeClass(settings.hiddenClass);
 		$('#trigger').dropdown('close');
 	});
 
