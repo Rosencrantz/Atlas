@@ -31,7 +31,7 @@ define(['jquery', 'eve', 'settings',
     'mixins/relativePosition', 
     'mixins/register'], 
     function ($, eve, settings, control, dispatcher, positioning, register) {
-        var trigger = '[data-' + settings.pluginAttribute + '="dialog"]';
+        var trigger = '[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.dialog + '"]';
 
         var Dialog = function (element) {
             $(element).on('click', trigger, this.toggle);
@@ -80,17 +80,16 @@ define(['jquery', 'eve', 'settings',
                 valign = (trigger.data('align') || 'center'),
                 pos = positioning($('body'), container);
 
-                debugger;
                 pos[align]();
                 pos[valign]();
         }
 
-        register('dialog', Dialog);
+        register(settings.pluginIdentifier.dialog, Dialog);
 
         $(function () {
             $('body').on('click', trigger, toggle);
 
-            eve.on(settings.appName + '.show.dialog', position);
+            eve.on(settings.appName + '.show.' + settings.pluginIdentifier.dialog, position);
         });
 
         return Dialog;

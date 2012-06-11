@@ -32,7 +32,7 @@
  *
  */
 define(['jquery', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatcher', 'mixins/relativePosition', 'mixins/register'], function ($, settings, control, dispatcher, position, register) {
-    var trigger = '[data-' + settings.pluginAttribute + '="tab"]';
+    var trigger = '[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.tab + '"]';
 
     var Tab = function (element) {
         $(element).on('click', trigger, this.open);
@@ -57,7 +57,7 @@ define(['jquery', 'settings', 'eventHandlers/controlLifecycle', 'mixins/dispatch
         });
     }
 
-    register.call(this, 'tab', Tab);
+    register.call(this, settings.pluginIdentifier.tab, Tab);
 
     $(function () {
         $('body').on('click', trigger, function(e) { e.preventDefault(); return Tab.prototype.open.call(e.target); });

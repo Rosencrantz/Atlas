@@ -6,6 +6,16 @@ define([], function () {
 		hiddenClass : 'atlas-hide',
 		invisibleClass : 'atlas-invisible',
 		activeClass : 'atlas-active',
-		disabledClass : 'atlas-disabled'
+		disabledClass : 'atlas-disabled',
+		pluginIdentifier : {
+			'dropdown' : 'dropdown',
+			'dialog' : 'dialog',
+			'helptip' : 'helptip',
+			'inlinedialog' : 'inlinedialog',
+			'popover' : 'popover',
+			'menu' : 'menu',
+			'menubar' : 'menubar',
+			'tab' : 'tab'
+		}
 	}
 });

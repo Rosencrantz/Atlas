@@ -28,7 +28,7 @@
  *
  */
 define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mixins/register'], function ($, eve, settings, navigation, keycode, register) {
-    var trigger = '[' + settings.pluginAttribute + '="menubar"]';
+    var trigger = '[' + settings.pluginAttribute + '="' + settings.pluginIdentifier.menubar + '"]';
 
     var Menubar = function (element) {
         var element = $(element),
@@ -83,16 +83,15 @@ define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mix
         event.type == "mouseenter" && nav.move(index);
     }
 
-    register('menubar', Menubar);
+    register('menubar', settings.pluginIdentifier.menubar);
     
     $(function () {
-        $('[data-' + settings.pluginAttribute + '="menubar"]').each(function () {
+        $('[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.menubar + '"]').each(function () {
 
             var that = $(this),
                 nav = navigation(that);
 
             that.data('nav', nav);
-            //that.on('keydown keypress', function(event) { event.preventDefault(); });
             that.on('keyup', function (event) { keyboardNavigation.apply(that, [event]) });
             that.on('mouseleave', function () { $(this).data('nav').clear() });
 

@@ -33,7 +33,7 @@ define(['jquery', 'eve', 'settings',
     'mixins/relativePosition', 
     'mixins/register'], 
     function ($, eve, settings, control, dispatcher, positioning, register) {
-        var trigger = '[data-' + settings.pluginAttribute + '="dropdown"]';
+        var trigger = '[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.dropdown + '"]';
 
         var Dropdown = function _Dropdown(element) {
             $(element).on('click', trigger, this.toggle);
@@ -86,13 +86,13 @@ define(['jquery', 'eve', 'settings',
                 pos[valign]();
         }
 
-        register('dropdown', Dropdown);
+        register(settings.pluginIdentifier.dropdown, Dropdown);
 
         $(function () {
             $(document).on('click', function () { close() });
             $('body').on('click', trigger, toggle);
 
-            eve.on(settings.appName + '.show.dropdown', position);
+            eve.on(settings.appName + '.show.' + settings.pluginIdentifier.dropdown, position);
         });
 
         return Dropdown;

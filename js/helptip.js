@@ -29,7 +29,7 @@ define(['jquery', 'eve', 'settings',
     'mixins/relativePosition', 
     'mixins/register'], 
     function ($, eve, settings, control, dispatcher, positioning, register) {
-        var trigger = '[data-' + settings.pluginAttribute + '="helptip"]';
+        var trigger = '[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.helptip + '"]';
 
         var Helptip = function (element) {
             $(element).on('click', trigger, this.toggle);
@@ -82,13 +82,13 @@ define(['jquery', 'eve', 'settings',
                 pos[valign]();
         }
 
-        register('helptip', Helptip);
+        register(settings.pluginIdentifier.helptip, Helptip);
 
         $(function () {
             $('body').on('click', close);
             $('body').on('click', trigger, toggle);
 
-            eve.on(settings.appName + '.show.helptip', position);
+            eve.on(settings.appName + '.show.' + settings.pluginIdentifier.helptip, position);
         });
 
         return Helptip;

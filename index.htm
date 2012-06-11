@@ -25,15 +25,37 @@
 		</div>
 		<div id="content">
 			<div id="main">
+				<h1>Important: Before we get started</h1>
+				<p>You can't help but have noticed how unattractive this page is. This is purposful. Atlas is designed to be used with your existing styles. It doesn't force you to use its own beautiful and manicured styles. You can just drop this into your site and start using it without it interfering with you existing css. As it has none.</p>
+				<p>Actually, that last paragraph was a bit of a lie. There are in fact 4 classes that are required by Atlas: A hidden class, an invisible class, a disabled class and an active class. These can be defined in the settings file, but by default they are:
+					<ul>
+						<li>atlas-hide</li>
+						<li>atlas-invisible</li>
+						<li>atlas-active</li>
+						<li>atlas-disabled</li>
+					</ul>
+				<p>You can find out a bit more about the settings in the settings tab below</p>
 				<h1>Tabs tabbing</h1>
 				<p>Tabs are a staple of any web application they allow associated data to sit on the screen without taking up too much space. This is a standard vertical tab, the buttons on the left change the content on the right</p>
 				<div id="tabs" data-trigger="tab">
 					<ul class="tab-menu" data-trigger="menu">
+						<li><a href="" aria-owns="settings">Configuration settings</a></li>
 						<li><a href="" aria-owns="panel1">Helptips</a></li>
 						<li><a href="" aria-owns="panel2">Popovers</a></li>
 						<li><a href="" aria-owns="panel3">Dialogs</a></li>
 					</ul>
-					<div class="tab-panel" id="panel1">
+					<div class="tab-panel" id="settings">
+						<h2>Settings</h2>
+						<p>Atlas can be configured, to some excent anyway. The configuration options aim to make the api fit into any existing site or application where there may be conflicts with names, classes, events or plugins. All of the settings for Atlas are placed within the settigns.js file which can be found in the js/ folder.</p>
+						<p>Configuration can be split into 3 parts. Attribute configuration, class configuration and plugin configuration.</p>
+						<h3>Attribute configuration</h3>
+						<p>By default Atlas uses the the data-trigger and aria-owns attributes to configure plugins in the markup. These can be altered by changing the pluginAttribute and panelAttribute settings.</p>
+						<h3>Class configuration</h3>
+						<p>There are four classes used in Atlas; the classes are used for hidden, invisible, active and disabled items. To configure these classes you'll need to update the appropriate settings. These are: hiddenClass, invisibleClass, activeClass and disabledClass</p>
+						<h3>Plugin configuration</h3>
+						<p>Each of the plugins in Atlas is a jQuery plugin, it is not unlikely that there may be some conflict between the Atlas plugins and other existing plugins. To address this issue Atlas provides a way for each plugin to be renamed. Inside the settings file there is a section for pluginIdentifiers containing a name for each plugin. Updating the right hand side of this will change the names and events for the relevent plugin</p>
+					</div>
+					<div class="tab-panel atlas-hide" id="panel1">
 						<h2>Helptips</h2>
 						<p>Helptips are those things that you click when you need help with stuff.
 							The can appear pretty much anywhere and can container pretty much anything.</p>
@@ -59,13 +81,15 @@
 				<p>But tabs can also be aligned above the panels, below them, to the right, in fact the tabs don't strictly need to be near the panels that they display at all! This is another common layout with tabs on top</p>
 				<div id="tabs2" data-trigger="tab">
 					<ul class="tab-menu-hz" data-trigger="menubar">
-						<li><a href="" aria-owns="panel4">Helptips</a></li>
-						<li><a href="" aria-owns="panel5">Popovers</a></li>
-						<li><a href="" aria-owns="panel6">Dialogs</a></li>
+						<li><a href="" aria-owns="panel4">Vertical</a></li>
+						<li><a href="" aria-owns="panel5">Tabs are</a></li>
+						<li><a href="" aria-owns="panel6">Awesome</a></li>
 					</ul>
-					<div class="tab-panel-hz" id="panel4">Panel 4</div>
-					<div class="tab-panel-hz atlas-hide" id="panel5">Panel 5</div>
-					<div class="tab-panel-hz atlas-hide" id="panel6">Panel 6</div>
+					<div class="tab-panel-hz" id="panel4"><p>Vertical tabs work in the same way as normal tabs. You just need to apply the appropriate styles</div>
+					<div class="tab-panel-hz atlas-hide" id="panel5"><p>There really is no difference between verical and horizontal panels. The markup pattern remains the same!</div>
+					<div class="tab-panel-hz atlas-hide" id="panel6">
+						<p>MOAR panels!</p>
+					</div>
 				</div>
 			</div>
 			<p>The end</p>

@@ -31,7 +31,7 @@ define(['jquery', 'eve', 'settings',
     'mixins/relativePosition', 
     'mixins/register'], 
     function ($, eve, settings, control, dispatcher, positioning, register) {
-        var trigger = '[data-' + settings.pluginAttribute + '="inlinedialog"]';
+        var trigger = '[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.inlinedialog + '"]';
 
         var InlineDialog = function (element) {
             $(element).on('click', trigger, this.toggle);
@@ -84,12 +84,12 @@ define(['jquery', 'eve', 'settings',
                 pos[valign]();
         }
 
-        register('inlinedialog', InlineDialog);
+        register(settings.pluginIdentifier.inlinedialog, InlineDialog);
 
         $(function () {
             $('body').on('click', trigger, toggle);
 
-            eve.on(settings.appName + '.show.inlinedialog', position);
+            eve.on(settings.appName + '.show.' + settings.pluginIdentifier.inlinedialog, position);
         });
 
         return InlineDialog;

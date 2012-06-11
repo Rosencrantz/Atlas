@@ -29,7 +29,7 @@ define(['jquery', 'eve', 'settings',
     'mixins/relativePosition', 
     'mixins/register'], 
     function ($, eve, settings, control, dispatcher, positioning, register) {
-        var trigger = '[data-' + settings.pluginAttribute + '="popover"]';
+        var trigger = '[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.popover +'"]';
 
         var Popover = function (element) {
             $(element).on('click', trigger, this.toggle);
@@ -82,13 +82,13 @@ define(['jquery', 'eve', 'settings',
                 pos[valign]();
         }
 
-        register('popover', Popover);
+        register(settings.pluginIdentifier.popover, Popover);
 
         $(function () {
             $('body').on('mouseleave', trigger, close);
             $('body').on('mouseenter', trigger, open);
 
-            eve.on(settings.appName + '.show.popover', position);
+            eve.on(settings.appName + '.show.' + settings.pluginIdentifier.popover, position);
         });
 
         return Popover;

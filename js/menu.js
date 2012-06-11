@@ -28,7 +28,7 @@
  *
  */
 define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mixins/register'], function ($, eve, settings, navigation, keycode, register) {
-    var trigger = '[' + settings.pluginAttribute + '="menu"]';
+    var trigger = '[' + settings.pluginAttribute + '="' + settings.pluginIdentifier.menu + '"]';
 
     var Menu = function (element) {
         var element = $(element),
@@ -83,10 +83,10 @@ define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mix
         event.type == "mouseenter" && nav.move(index);
     }
 
-    register('menu', Menu);
+    register(settings.pluginIdentifier.menu, Menu);
     
     $(function () {
-        $('[data-' + settings.pluginAttribute + '="menu"]').each(function () {
+        $('[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.menu + '"]').each(function () {
 
             var that = $(this),
                 nav = navigation(that);
