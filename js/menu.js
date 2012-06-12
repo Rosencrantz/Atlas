@@ -68,6 +68,7 @@ define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mix
                 nav.previous();
             } else {
                 if(previousMenu) {
+                    nav.clear();
                     previousMenu.last();
                 } else {
                     nav.move(0);
@@ -78,8 +79,18 @@ define(['jquery', 'eve', 'settings', 'mixins/navigation', 'mixins/keycodes','mix
         return this;
     }
 
+    function clearAll() {
+        $('[data-' + settings.pluginAttribute + '="' + settings.pluginIdentifier.menu + '"]').each(function () {
+            var that = $(this),
+                nav = that.data('nav');
+
+            nav.clear();
+        });        
+    }
+    
     function mouseNavigation(event, container, index) {
         var nav = $(container).data('nav');
+        clearAll();
         event.type == "mouseenter" && nav.move(index);
     }
 
