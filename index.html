@@ -26,15 +26,25 @@
 		<h1 id="introduction">Atlas Introduction</h1>
 		<h2 id="dropdown">Dropdowns</h2>
 		<a href="" data-trigger="dropdown" aria-owns="dropdownContainer">Dropdown 1</a>
-		<a href="" data-trigger="dropdown" aria-owns="dropdownContainer" data-align="right" data-valign="top">Dropdown 2</a>
-		<button href="" data-trigger="dropdown" aria-owns="dropdownContainer">Dropdown 1</button>
+		<a href="" data-trigger="dropdown" aria-owns="dropdownContainer2" data-align="right" data-valign="top">Dropdown 2</a>
+		<button href="" data-trigger="dropdown" aria-owns="dropdownContainer3">Dropdown 1</button>
+		<h3>Basic dropdown markup</h3>
 		<pre class="prettyprint linenums:1">
 			&lt;a data-trigger="dropdown" aria-owns="mydropdown"&gt;Trigger&lt;/a&gt;
 			&lt;div id="mydropdown"&gt;Container&lt;/div&gt;
 		</pre>
+		<h3>Dropdown options</h3>
 		<pre class="prettyprint linenums:1">
 			&lt;a data-trigger="dropdown" aria-owns="mydropdown" data-align="right" data-valign="top" &gt;Trigger&lt;/a&gt;
 			&lt;div id="mydropdown"&gt;Container&lt;/div&gt;
+		</pre>
+		<h3>Javascript invocation</h3>
+		<pre class="prettyprint linenums:1">
+			$('#selector').dropdown();
+
+			$('#selector').dropdown('show');
+			$('#selector').dropdown('hide');
+			$('#selector').dropdown('toggle');
 		</pre>
 		<h2 id="dialog">Dialogs</h2>
 		<h2 id="inline-dialog">Inline dialogs</h2>
@@ -45,6 +55,12 @@
 
 		<!--Containers-->
 		<div id="dropdownContainer">
+			<p>This is my container</p>
+		</div>
+		<div id="dropdownContainer2">
+			<p>This is my container</p>
+		</div>
+		<div id="dropdownContainer3">
 			<p>This is my container</p>
 		</div>
 	</body>
