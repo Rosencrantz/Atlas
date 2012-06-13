@@ -24,22 +24,27 @@
 			</div>
 		</div>
 		<h1 id="introduction">Atlas Introduction</h1>
+		<p>Welcome to Atlas, A small tool for quickly and easily adding common UI components into your application</p>
 		<h2 id="dropdown">Dropdowns</h2>
+		<p>Dropdowns, as the name suggests are containers that drop down below a trigger. A dropdown can contain pretty much anything, although it's most popular function is as a container for a menu.</p>
+		<h3>Examples</h3>
 		<a href="" data-trigger="dropdown" aria-owns="dropdownContainer">Dropdown 1</a>
 		<a href="" data-trigger="dropdown" aria-owns="dropdownContainer2" data-align="right" data-valign="top">Dropdown 2</a>
-		<button href="" data-trigger="dropdown" aria-owns="dropdownContainer3">Dropdown 1</button>
-		<h3>Basic dropdown markup</h3>
-		<pre class="prettyprint linenums:1">
+		<button href="" data-trigger="dropdown" aria-owns="dropdownContainer3">Dropdown 3</button>
+		<h3>Markup</h3>
+		<pre class="prettyprint linenums">
 &lt;a data-trigger="dropdown" aria-owns="mydropdown"&gt;Trigger&lt;/a&gt;
 &lt;div id="mydropdown"&gt;Container&lt;/div&gt;
 		</pre>
-		<h3>Dropdown options</h3>
-		<pre class="prettyprint linenums:1">
+		<h3>Options</h3>
+		<p>Unsurprisingly a dropdown will tend to drop down, but with a little configuration these dropdowns can be setup to appear in a multitude of locations.</p>
+		<pre class="prettyprint linenums">
 &lt;a data-trigger="dropdown" aria-owns="mydropdown" data-align="right" data-valign="top" &gt;Trigger&lt;/a&gt;
 &lt;div id="mydropdown"&gt;Container&lt;/div&gt;
 		</pre>
 		<h3>Javascript invocation</h3>
-		<pre class="prettyprint linenums:1">
+		<p>Creating and interacting with dropdowns from your javacsript is possible with the following simple commands</p>
+		<pre class="prettyprint linenums">
 //Converts the #selector to a dropdown. The selector should have the appropriate aria-owns value
 $('#selector').dropdown();
 
@@ -48,6 +53,14 @@ $('#selector').dropdown('show');
 $('#selector').dropdown('hide');
 $('#selector').dropdown('toggle');
 		</pre>
+		<h3>Events</h3>
+		<p>A dropdown will generate a number of pre/post events for you to hook into for altering and extending the functionality of your dropdowns. The events raised by the dropdown are:</p>
+		<ul>
+			<li>atlas.dropdown.show (raised immediately before a dropdown is displayed</li>
+			<li>atlas.dropdown.shown (raised immediately after a dropdown is displayed)</li>
+			<li>atlas.dropdown.hide (raised immediately before a dropdown is hidden)</li>
+			<li>atlas.dropdown.hidden (raised immediately after a dropdown is hidden)</li>
+		</ul>
 		<h2 id="dialog">Dialogs</h2>
 		<h2 id="inline-dialog">Inline dialogs</h2>
 		<h2 id="helptip">Helptips</h2>
