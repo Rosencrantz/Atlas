@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="css/prettify.css" />
 		<link rel="stylesheet" type="text/css" href="css/docs.css" />
 		<script type="text/javascript" src="js/atlas.js"></script>
+		<script type="text/javascript" src="js/prettify.js"></script>
 	</head>
 	<body>
 		<div class="navbar">
@@ -26,6 +28,14 @@
 		<a href="" data-trigger="dropdown" aria-owns="dropdownContainer">Dropdown 1</a>
 		<a href="" data-trigger="dropdown" aria-owns="dropdownContainer" data-align="right" data-valign="top">Dropdown 2</a>
 		<button href="" data-trigger="dropdown" aria-owns="dropdownContainer">Dropdown 1</button>
+		<pre class="prettyprint">
+			<a data-trigger="dropdown" aria-owns="mydropdown">Trigger</a>
+			<div id="mydropdown">Container</div>
+		</pre>
+		<pre class="prettyprint">
+			<a data-trigger="dropdown" aria-owns="mydropdown" data-align="right" data-valign="top">Trigger</a>
+			<div id="mydropdown">Container</div>
+		</pre>
 		<h2 id="dialog">Dialogs</h2>
 		<h2 id="inline-dialog">Inline dialogs</h2>
 		<h2 id="helptip">Helptips</h2>
