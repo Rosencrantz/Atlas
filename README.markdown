@@ -4,6 +4,10 @@ Atlas is a user interface prototyping tool. It purpose is to provides a number o
 
 In an effort to provide simple patterns Atlas provides a set of small components that can be composed into larger, more complex features. The most simple components provided by Atlas consist of a trigger and a container, the markup for which is terse and easy to commit to memory. More can be found in the documentation on this subject
 
+## Documentation
+
+There's a lot of documentation in the individual files, but if you're of a nervous disposition and would prefer to see you Docs in a web browser, keep an eye on: http://rosencrantz.github.com/Atlas/ Which is the current home of the documentation effort. As you can see, it's still in development.
+
 ## Getting started
 
 ### The very quick way to get started
